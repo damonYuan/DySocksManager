@@ -1,0 +1,95 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+
+# Increase numworkers if you want more than 3 nodes
+numworkers = {{ num_of_workers }}
+
+# VirtualBox settings
+# Increase vmmemory if you want more than 512mb memory in the vm's
+vmmemory = 1024
+# Increase numcpu if you want more cpu's per vm
+numcpu = 1
+
+instances = []
+
+(1..numworkers).each do |n|
+  instances.push({:name => "worker#{n}", :ip => "{{ swarm_ip_subnet }}.#{n+2}"})
+end
+
+manager_ip = '{{ manager_ip }}'
+
+#File.open('./hosts', 'w') { |file|
+#  file.write("#{manager_ip} manager manager\n")
+#  instances.each do |i|
+#    file.write("#{i[:ip]} #{i[:name]} #{i[:name]}\n")
+#  end
+#}
+
+http_proxy = "{{ http_proxy }}"
+https_proxy = "{{ https_proxy }}"
+
+no_proxy = "localhost,127.0.0.1,#{manager_ip}"
+instances.each do |instance|
+  no_proxy += ",#{instance[:ip]}"
+end
+
+# Vagrant version requirement
+Vagrant.require_version ">= 1.8.4"
+
+# Check if the necessary plugins are installed
+unless http_proxy.to_s.strip.empty?
+  required_plugins = %w( vagrant-proxyconf )
+  plugins_to_install = required_plugins.select { |plugin| not Vagrant.has_plugin? plugin }
+  unless plugins_to_install.empty?
+    puts "Installing plugins: #{plugins_to_install.join(' ')}"
+    if system "vagrant plugin install #{plugins_to_install.join(' ')}"
+      exec "vagrant #{ARGV.join(' ')}"
+    else
+      abort "Installation of one or more plugins has failed. Aborting."
+    end
+  end
+end
+
+Vagrant.configure("2") do |config|
+  config.vm.provider "virtualbox" do |v|
+    #v.memory = vmmemory
+    #v.cpus = numcpu
+  end
+
+  config.ssh.insert_key = false
+
+  config.vm.define "manager" do |i|
+    i.vm.box = "ubuntu/trusty64"
+    i.vm.hostname = "manager"
+    i.vm.network "private_network", ip: "#{manager_ip}"
+    #i.vm.network "forwarded_port", guest: 9090, host: 9090
+    #i.vm.network "forwarded_port", guest: 9091, host: 9091
+    #i.vm.network "forwarded_port", guest: 6443, host: 6443
+    #i.vm.network "forwarded_port", guest: 6500, host: 6500, protocol: "udp"
+    # Proxy
+    i.proxy.http     = http_proxy
+    i.proxy.https    = https_proxy
+    i.proxy.no_proxy = no_proxy
+  end
+
+  instances.each do |instance|
+    config.vm.define instance[:name] do |i|
+      i.vm.box = "ubuntu/trusty64"
+      i.vm.hostname = instance[:name]
+      i.vm.network "private_network", ip: "#{instance[:ip]}"
+      #i.vm.network "forwarded_port", guest: 9090, host: 9090
+      #i.vm.network "forwarded_port", guest: 9091, host: 9091
+      #i.vm.network "forwarded_port", guest: 6443, host: 6443
+      #i.vm.network "forwarded_port", guest: 6500, host: 6500, protocol: "udp"
+      # Proxy
+      i.proxy.http     = http_proxy
+      i.proxy.https    = https_proxy
+      i.proxy.no_proxy = no_proxy
+    end
+  end
+end

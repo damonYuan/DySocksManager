@@ -1,0 +1,44 @@
+---
+- name: install python
+  hosts: tag_type_manager:tag_type_worker:tag_type_nginx:&tag_env_production
+  remote_user: "{{ ubuntu_user }}"
+  become: yes
+  gather_facts: no
+  strategy: free
+  vars_files:
+    - ./files/production.yml
+  pre_tasks:
+    - name: install python
+      raw: apt-get install -y python-minimal
+
+- name: install nginx
+  hosts: tag_type_nginx:&tag_env_production
+  remote_user: "{{ ubuntu_user }}"
+  become: yes
+  gather_facts: yes
+  strategy: free
+  vars_files:
+    - ./files/production.yml
+  roles:
+    - role: nginx
+
+- name: install docker
+  hosts: tag_type_manager:tag_type_worker:&tag_env_production
+  remote_user: "{{ ubuntu_user }}"
+  become: yes
+  gather_facts: no
+  vars_files:
+    - ./files/production.yml
+  strategy: free
+  roles:
+    - role: docker
+
+- name: config swarm
+  hosts: tag_type_manager:tag_type_worker:&tag_env_production
+  remote_user: "{{ ubuntu_user }}"
+  become: yes
+  gather_facts: yes
+  vars_files:
+    - ./files/production.yml
+  roles:
+    - role: aws_swarm

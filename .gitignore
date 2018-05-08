@@ -1,0 +1,10 @@
+.vagrant/
+.vault_pass.txt
+*/vault/*.yml
+*.pem
+*.retry
+.idea/
+ssh.cfg
+.env
+shadowsocks-manager/
+production-secret.yml

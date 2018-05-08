@@ -1,0 +1,61 @@
+---
+
+- name: test docker
+  shell: |
+    which docker
+  register: result
+  ignore_errors: True
+
+- name: install docker for vagrant
+  script: files/get_docker_vagrant.sh
+  become: True
+  when: env == 'development' and result.rc != 0
+
+- name: install docker for production and staging
+  script: files/get_docker.sh
+  become: True
+  when: (env == 'production' or env == 'staging') and result.rc != 0
+
+- name: add user
+  shell: |
+    usermod -aG docker ubuntu
+    service docker start
+  become: True
+  when: env == 'staging' or env == 'production'
+
+- name: test docker-compose
+  shell: |
+    which docker-compose
+  register: result
+  ignore_errors: True
+
+- name: install docker-compose
+  script: files/get_docker_compose.sh
+  become: True
+  when: result.rc != 0
+
+#- name: change hostname to manager
+#  hostname:
+#    name: "manager"
+#  when: cluster_ip == manager_ip
+#
+#- name: change hostname to worker
+#  hostname:
+#    name: "worker-{{ cluster_ip }}"
+#  when: cluster_ip != manager_ip
+#
+#- name: add myself to /etc/hosts
+#  lineinfile:
+#    dest: /etc/hosts
+#    regexp: '^127\.0\.0\.1[ \t]+localhost'
+#    line: '127.0.0.1 localhost manager'
+#    state: present
+#  when: cluster_ip == manager_ip
+#
+#- name: add myself to /etc/hosts
+#  lineinfile:
+#    dest: /etc/hosts
+#    regexp: '^127\.0\.0\.1[ \t]+localhost'
+#    line: '127.0.0.1 localhost worker-{{ cluster_ip }}'
+#    state: present
+#  when: cluster_ip != manager_ip

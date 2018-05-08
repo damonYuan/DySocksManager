@@ -1,0 +1,33 @@
+---
+
+- name: install pm2
+  npm:
+    name: pm2
+    global: true
+
+- name: install shadowsocks-manager
+  npm:
+    name: shadowsocks-manager
+    global: true
+
+- name: Creates directory
+  file:
+    path: /root/.ssmgr
+    state: directory
+    owner: root
+    group: root
+    mode: 0644
+  become: true
+
+- name: copy ssmgr.yml
+  copy: src=files/ssmgr.yml dest=/root/.ssmgr/ssmgr.yml
+
+- name: start shadowsocks
+  shell: |
+    ss-manager -m aes-256-cfb -u --manager-address 127.0.0.1:4000
+
+- name: start ssmgr
+  shell: |
+    pm2 --name "ssmgr" -f start ssmgr -x -- -c /root/.ssmgr/ssmgr.yml
+
+

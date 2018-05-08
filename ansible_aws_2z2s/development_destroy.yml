@@ -1,0 +1,6 @@
+---
+- name: destroy hosts
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - role: vagrantd

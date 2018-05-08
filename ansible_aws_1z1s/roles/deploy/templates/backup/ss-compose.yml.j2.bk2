@@ -1,0 +1,165 @@
+version: '3.2'
+
+services:
+
+  db:
+    image: damonyuan/ss-mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: {{ MANAGER_DB_PASSWORD }}
+    volumes:
+      - db:/var/lib/mysql
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - db
+    environment:
+      PMA_HOSTS: db,db
+      PMA_VERBOSES: ssmgr,webgui
+      PMA_PORTS: 3306,3306
+    ports:
+      - target: 80
+        published: 6004
+        protocol: tcp
+        mode: ingress
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+  ss:
+    image: damonyuan/ss-swarm-base
+    ports:
+      # cannot publish a range: https://github.com/docker/compose/issues/5613
+      - target: 50000
+        published: 50000
+        protocol: tcp
+        mode: host
+      - target: 50001
+        published: 50001
+        protocol: tcp
+        mode: host
+      - target: 50002
+        published: 50002
+        protocol: tcp
+        mode: host
+      - target: 50003
+        published: 50003
+        protocol: tcp
+        mode: host
+      - target: 50004
+        published: 50004
+        protocol: tcp
+        mode: host
+      - target: 50005
+        published: 50005
+        protocol: tcp
+        mode: host
+      - target: 50006
+        published: 50006
+        protocol: tcp
+        mode: host
+      - target: 50007
+        published: 50007
+        protocol: tcp
+        mode: host
+      - target: 50008
+        published: 50008
+        protocol: tcp
+        mode: host
+      - target: 50009
+        published: 50009
+        protocol: tcp
+        mode: host
+      - target: 50010
+        published: 50010
+        protocol: tcp
+        mode: host
+      - target: 6001
+        published: 6001
+        protocol: udp
+        mode: host
+    command: "ss-manager -m aes-256-cfb -u -v --manager-address 0.0.0.0:6001 -d 8.8.8.8 -d 8.8.4.4"
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+  ssmgr:
+    image: damonyuan/ss-mgr:latest
+    environment:
+      SS_PROXY_ADDRESS: {{ SS_PROXY_ADDRESS }}
+      SS_PROXY_PORT: {{ SS_PROXY_PORT }}
+      MANAGER_PASSWORD: {{ MANAGER_PASSWORD }}
+      MANAGER_DB_PASSWORD: {{ MANAGER_DB_PASSWORD }}
+      MANAGER_DB_NAME: {{ MANAGER_DB_NAME }}
+      MANAGER_DB_HOST: {{ MANAGER_DB_HOST }}
+      MANAGER_DB_USER: {{ MANAGER_DB_USER }}
+    depends_on:
+      - db
+      - ss
+    ports:
+      - target: 6001
+        published: 6001
+        protocol: tcp
+        mode: host
+      - target: 6002
+        published: 6002
+        protocol: tcp
+        mode: host
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+  webgui:
+    image: damonyuan/ss-webgui:latest
+    environment:
+      WEBGUI_EMAIL_USERNAME: {{ WEBGUI_EMAIL_USERNAME }}
+      WEBGUI_EMAIL_PASSWORD: {{ WEBGUI_EMAIL_PASSWORD }}
+      WEBGUI_EMAIL_HOST: {{ WEBGUI_EMAIL_HOST }}
+      WEBGUI_DB_PASSWORD: {{ WEBGUI_DB_PASSWORD }}
+      WEBGUI_DB_NAME: {{ WEBGUI_DB_NAME }}
+      WEBGUI_DB_HOST: {{ WEBGUI_DB_HOST }}
+      WEBGUI_DB_USER: {{ WEBGUI_DB_USER }}
+      WEBGUI_SITE_DOMAIN: {{ WEBGUI_SITE_DOMAIN }}
+      MANAGER_ADDRESS: {{ MANAGER_ADDRESS }}
+      MANAGER_PASSWORD: {{ MANAGER_PASSWORD }}
+      MANAGER_PORT: {{ MANAGER_PORT }}
+    depends_on:
+      - ssmgr
+    ports:
+      - target: 6003
+        published: 6003
+        protocol: tcp
+        mode: ingress
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+volumes:
+  db:
+    driver: local

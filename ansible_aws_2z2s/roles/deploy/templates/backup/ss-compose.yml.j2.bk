@@ -1,0 +1,87 @@
+version: '3.2'
+
+services:
+
+  db:
+    image: damonyuan/ss-mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: {{ MANAGER_DB_PASSWORD }}
+    volumes:
+      - db:/var/lib/mysql
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - db
+    environment:
+      PMA_HOSTS: db
+      PMA_VERBOSES: db
+      PMA_PORTS: 3306
+    ports:
+      - 6004:80
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+  ssmgr:
+    image: damonyuan/ss-swarm:latest
+    environment:
+      MANAGER_PASSWORD: {{ MANAGER_PASSWORD }}
+      MANAGER_DB_PASSWORD: {{ MANAGER_DB_PASSWORD }}
+      MANAGER_DB_NAME: {{ MANAGER_DB_NAME }}
+      MANAGER_DB_HOST: {{ MANAGER_DB_HOST }}
+      MANAGER_DB_USER: {{ MANAGER_DB_USER }}
+    depends_on:
+      - db
+    ports:
+      - 6002:6002
+      - 6001:6001
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+  webgui:
+    image: damonyuan/ss-webgui:latest
+    environment:
+      WEBGUI_EMAIL_USERNAME: {{ WEBGUI_EMAIL_USERNAME }}
+      WEBGUI_EMAIL_PASSWORD: {{ WEBGUI_EMAIL_PASSWORD }}
+      WEBGUI_EMAIL_HOST: {{ WEBGUI_EMAIL_HOST }}
+      WEBGUI_MANAGER_PASSWORD: {{ WEBGUI_MANAGER_PASSWORD }}
+      WEBGUI_DB_PASSWORD: {{ WEBGUI_DB_PASSWORD }}
+      WEBGUI_DB_NAME: {{ WEBGUI_DB_NAME }}
+      WEBGUI_DB_HOST: {{ WEBGUI_DB_HOST }}
+      WEBGUI_DB_USER: {{ WEBGUI_DB_USER }}
+      WEBGUI_SITE_DOMAIN: {{ WEBGUI_SITE_DOMAIN }}
+      WEBGUI_MANAGER_ADDRESS: {{ WEBGUI_MANAGER_ADDRESS }}
+    ports:
+      - 6003:6003
+    volumes:
+      - webgui:/root/.ssmgr
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+volumes:
+  db:
+    driver: local
+  webgui:
+    driver: local

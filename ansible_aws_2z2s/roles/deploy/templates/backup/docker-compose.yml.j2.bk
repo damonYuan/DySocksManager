@@ -1,0 +1,98 @@
+version: '3.2'
+
+services:
+
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - 9090:8080
+    stop_grace_period: 1m30s
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+  influx:
+    image: influxdb
+    volumes:
+      - influx:/var/lib/influxdb
+    environment:
+      INFLUXDB_DB: 'cadvisor'
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - 9091:3000
+    volumes:
+      - grafana:/var/lib/grafana
+    depends_on:
+      - influx
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+  cadvisor:
+    image: google/cadvisor
+    command: -logtostderr -docker_only -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influx:8086
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    depends_on:
+      - influx
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+  shadowsocks:
+    image: mritd/shadowsocks
+    ports:
+      - 6443:6443
+      - 6500:6500/udp
+    environment:
+      SS_MODULE: "ss-server"
+      SS_CONFIG: "-s 0.0.0.0 -p 6443 -m aes-256-cfb -k {{ ss_password }} --fast-open -d 8.8.8.8 -d 8.8.4.4 -u -v"
+      KCP_MODULE: "kcpserver"
+      KCP_CONFIG: "-t 127.0.0.1:6443 -l :6500 -mode fast2"
+      KCP_FLAG: "false"
+    deploy:
+      replicas: 10
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+volumes:
+  influx:
+    driver: local
+  grafana:
+    driver: local

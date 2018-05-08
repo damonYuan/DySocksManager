@@ -1,0 +1,19 @@
+vrrp_script chk_haproxy {
+    script "pidof nginx"
+    interval 2
+}
+vrrp_instance VI_1 {
+    debug 2
+    interface eth0 # interface to monitor
+    state MASTER
+    virtual_router_id 51 # Assign one ID for this route
+    priority 101 # 101 on master, 100 on backup
+    unicast_src_ip {{ nginx_1_ip }} # My IP
+    unicast_peer {
+        {{ nginx_2_ip }} # peer IP
+    }
+    track_script {
+        chk_haproxy
+    }
+    notify_master /etc/keepalived/master.sh
+}

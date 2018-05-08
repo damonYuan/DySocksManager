@@ -1,0 +1,3 @@
+---
+destroy_region: "{{ region }}"
+destroy_env: "{{ env }}"

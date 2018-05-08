@@ -1,0 +1,32 @@
+---
+- name: deploy docker service
+  hosts: tag_type_manager:tag_type_worker:&tag_env_staging
+  remote_user: "{{ ubuntu_user }}"
+  become: yes
+  gather_facts: true
+  strategy: free
+  vars_files:
+    - ./files/staging.yml
+    - ./vault/staging-secret.yml
+  roles:
+    - role: deploy
+
+#- name: deploy docker service
+#  hosts: tag_type_nginx:&tag_env_staging
+#  remote_user: "{{ ubuntu_user }}"
+#  become: yes
+#  gather_facts: False
+#  vars_files:
+#    - ./files/staging.yml
+#    - ./vault/staging-secret.yml
+#  vars:
+#    NODEJS_VERSION: "8"
+#  pre_tasks:
+#    - name: setup node
+#      raw: curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+#    - name: install node
+#      apt:
+#        name: nodejs
+#        update_cache: yes
+#  roles:
+#    - role: ss-manager

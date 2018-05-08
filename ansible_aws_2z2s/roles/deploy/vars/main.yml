@@ -1,0 +1,2 @@
+---
+deploy_ubuntu_user: "{{ ubuntu_user }}"

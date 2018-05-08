@@ -1,0 +1,63 @@
+---
+
+- set_fact:
+    private_ip: "{{ item }}"
+  with_items: "{{ ansible_all_ipv4_addresses }}"
+  when: item.startswith(vpc_header)
+
+- name: install nginx
+  apt: name=nginx update_cache=yes
+
+- name: Creates directory
+  file:
+    path: /etc/nginx/conf.d/stream
+    state: directory
+    owner: root
+    group: root
+    mode: 0775
+  become: true
+
+- name: copy nginx config file
+  copy: src=files/nginx.conf dest=/etc/nginx/nginx.conf
+
+#- name: copy nginx config file
+#  copy: src=files/default.conf dest=/etc/nginx/sites-available/default
+
+- name: copy index.html
+  template: src=templates/index.html.j2 dest=/usr/share/nginx/html/index.html mode=0644
+
+- name: enable configuration
+  file: >
+    dest=/etc/nginx/sites-enabled/default
+    src=/etc/nginx/sites-available/default
+    state=link
+
+- name: copy default config file
+  template:
+    src: main.conf.j2
+    dest: /etc/nginx/sites-available/default
+    mode: 0644
+
+- name: copy nginx config file
+  template:
+    src: visualizer.conf.j2
+    dest: /etc/nginx/conf.d/visualizer.conf
+    mode: 0644
+
+- name: copy nginx config file
+  template:
+    src: grafana.conf.j2
+    dest: /etc/nginx/conf.d/grafana.conf
+    mode: 0644
+
+- name: copy nginx config file
+  template:
+    src: phpmyadmin.conf.j2
+    dest: /etc/nginx/conf.d/phpmyadmin.conf
+    mode: 0644
+
+- name: reload nginx
+  service: name=nginx state=reloaded
+
+
+

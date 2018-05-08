@@ -1,0 +1,24 @@
+---
+aws_env: "{{ env }}"
+aws_region: "{{ region }}"
+
+aws_instance_type: "{{ instance_type }}"
+aws_instance_tags: "{{ instance_tags }}"
+aws_key_name: "{{ key_name }}"
+aws_exact_count: "{{ exact_count }}"
+aws_device_size: "{{ device_size }}"
+
+aws_sg_groups: "{{ sg_groups }}"
+
+aws_vpc_cidr_block: "{{ vpc_cidr_block }}"
+
+aws_available_zone_1: "{{ available_zone_1 }}"
+aws_public_subnet_cidr_1: "{{ public_subnet_cidr_1 }}"
+aws_private_subnet_cidr_1: "{{ private_subnet_cidr_1 }}"
+
+aws_available_zone_2: "{{ available_zone_2 }}"
+aws_public_subnet_cidr_2: "{{ public_subnet_cidr_2 }}"
+aws_private_subnet_cidr_2: "{{ private_subnet_cidr_2 }}"
+
+
+

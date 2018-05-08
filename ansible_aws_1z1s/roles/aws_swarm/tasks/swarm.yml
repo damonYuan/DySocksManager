@@ -1,0 +1,43 @@
+---
+
+- set_fact:
+    private_ip: "{{ item }}"
+  with_items: "{{ ansible_all_ipv4_addresses }}"
+  when: item.startswith(vpc_header)
+
+- name: init swarm
+  shell: |
+    docker swarm init --advertise-addr "{{ manager_1_ip }}"
+  when: private_ip == manager_1_ip
+  ignore_errors: true
+
+- name: get manager join token
+  shell: |
+    docker swarm join-token -q manager
+  register: manager_token
+  when: private_ip == manager_1_ip
+
+- name: get worker join token
+  shell: |
+    docker swarm join-token -q worker
+  register: worker_token
+  when: private_ip == manager_1_ip
+
+- set_fact:
+    manager_token: "{{ manager_token.stdout }}"
+    worker_token: "{{ worker_token.stdout }}"
+  when: private_ip == manager_1_ip
+
+- name: workers join swarm
+  shell: |
+    docker swarm join --advertise-addr {{ private_ip }} --listen-addr {{ private_ip }}:2377 --token {{ hostvars[manager_1_ip]['worker_token'] }} {{ manager_1_ip }}:2377
+  when: private_ip != manager_1_ip
+  ignore_errors: true
+
+# Normally there should be more than 2 managers if multiple managers are used but we are using 1 here to save cost
+#- name: managers join swarm
+#  shell: |
+#    docker swarm join --advertise-addr {{ private_ip }} --listen-addr {{ private_ip }}:2377 --token {{ hostvars[manager_1_ip]['manager_token'] }} {{ manager_1_ip }}:2377
+#  when: private_ip == manager_2_ip
+#  ignore_errors: true
+

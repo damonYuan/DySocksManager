@@ -1,0 +1,26 @@
+version: '2.3'
+
+services:
+
+  ss:
+    image: damonyuan/ss-sockets
+    restart: unless-stopped
+    ports:
+      - 50000-50100:50000-50100
+
+  ssmgr:
+    image: damonyuan/ss-mgr:latest
+    environment:
+      SS_PROXY_ADDRESS: {{ SS_PROXY_ADDRESS }}
+      SS_PROXY_PORT: {{ SS_PROXY_PORT }}
+      MANAGER_PORT: {{ MANAGER_PORT }}
+      MANAGER_PASSWORD: {{ MANAGER_PASSWORD }}
+      MANAGER_DB_PASSWORD: {{ MANAGER_DB_PASSWORD }}
+      MANAGER_DB_NAME: {{ MANAGER_DB_NAME }}
+      MANAGER_DB_HOST: {{ MANAGER_DB_HOST }}
+      MANAGER_DB_USER: {{ MANAGER_DB_USER }}
+    depends_on:
+      - ss
+    ports:
+      - 6002:6002
+    restart: unless-stopped

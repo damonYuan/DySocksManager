@@ -1,0 +1,12 @@
+---
+- name: deploy docker service
+  hosts: tag_type_manager:tag_type_worker:&tag_env_production
+  remote_user: "{{ ubuntu_user }}"
+  become: yes
+  gather_facts: true
+  strategy: free
+  vars_files:
+    - ./files/production.yml
+    - ./vault/production-secret.yml
+  roles:
+    - role: deploy

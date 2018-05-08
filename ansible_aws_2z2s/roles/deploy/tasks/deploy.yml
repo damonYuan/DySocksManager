@@ -1,0 +1,47 @@
+- set_fact:
+    private_ip: "{{ item }}"
+  with_items: "{{ ansible_all_ipv4_addresses }}"
+  when: item.startswith(vpc_header)
+
+- name: add monit-stack.yml file
+  template:
+    src: monit-stack.yml.j2
+    dest: ~/monit-stack.yml
+    owner: "{{ deploy_ubuntu_user }}"
+    mode: '0755'
+  become: True
+  become_user: "{{ deploy_ubuntu_user }}"
+  when: private_ip == manager_1_ip
+
+#- name: pull docker image
+#  command: docker-compose pull
+#  become: True
+#  become_user: "{{ deploy_ubuntu_user }}"
+
+- name: deploy docker image
+  shell: |
+    docker-compose -f monit-stack.yml pull && docker stack deploy --compose-file monit-stack.yml monit
+  when: private_ip == manager_1_ip
+#  become: True
+#  become_user: "{{ deploy_ubuntu_user }}"
+
+- name: add ss-stack.yml file
+  template:
+    src: ss-stack.yml.j2
+    dest: ~/ss-stack.yml
+    owner: "{{ deploy_ubuntu_user }}"
+    mode: '0755'
+  become: True
+  become_user: "{{ deploy_ubuntu_user }}"
+  when: private_ip == manager_1_ip
+
+- name: deploy docker image
+  shell: |
+    docker-compose -f ss-stack.yml pull && docker stack deploy --compose-file ss-stack.yml ss
+  when: private_ip == manager_1_ip
+
+- name: prune docker image
+  shell: |
+    docker image prune -f
+#  become: True
+#  become_user: "{{ deploy_ubuntu_user }}"

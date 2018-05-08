@@ -1,0 +1,136 @@
+defaults: &defaults
+  machine: true
+  working_directory: ~/DySocksManager
+
+version: 2
+jobs:
+  ssmysql-build-job:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-{{ checksum "./ssmysql/Dockerfile" }}-{{ checksum "./ssmysql/init_webgui.sql" }}-{{ checksum "./ssmysql/mysql.cnf" }}
+          paths:
+            - ~/caches/ssmysql.tar
+            - ~/caches/mysql.tar
+      - run:
+          name: Load Docker image layer cache
+          command: |
+            set +o pipefail
+            docker load -i ~/caches/ssmysql.tar | true
+            docker load -i ~/caches/mysql.tar | true
+      - run:
+          name: Build application Docker image
+          command: |
+            docker build --cache-from=damonyuan/ss-mysql -t damonyuan/ss-mysql ./ssmysql/
+      - run:
+          name: Save Docker image layer cache
+          command: |
+            mkdir -p ~/caches
+            docker save -o ~/caches/ssmysql.tar damonyuan/ss-mysql
+            docker save -o ~/caches/mysql.tar mysql
+      - save_cache:
+          key: v1-{{ checksum "./ssmysql/Dockerfile" }}-{{ checksum "./ssmysql/init_webgui.sql" }}-{{ checksum "./ssmysql/mysql.cnf" }}
+          paths:
+            - ~/caches/ssmysql.tar
+            - ~/caches/mysql.tar
+      - run:
+          name: Push to dockerHub
+          command: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker push damonyuan/ss-mysql
+
+  sswebgui-build-job:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-{{ checksum "./sswebgui/Dockerfile" }}-{{ checksum "./sswebgui/entrypoint.sh" }}-{{ checksum "./sswebgui/webgui.yml" }}
+          paths:
+            - ~/caches/sswebgui.tar
+      - run:
+          name: Load Docker image layer cache
+          command: |
+            set +o pipefail
+            docker load -i ~/caches/sswebgui.tar | true
+      - run:
+          name: Build application Docker image
+          command: |
+            docker build --cache-from=damonyuan/ss-webgui -t damonyuan/ss-webgui ./sswebgui/
+      - run:
+          name: Save Docker image layer cache
+          command: |
+            mkdir -p ~/caches
+            docker save -o ~/caches/sswebgui.tar damonyuan/ss-webgui
+      - save_cache:
+          key: v1-{{ checksum "./sswebgui/Dockerfile" }}-{{ checksum "./sswebgui/entrypoint.sh" }}-{{ checksum "./sswebgui/webgui.yml" }}
+          paths:
+            - ~/caches/sswebgui.tar
+      - run:
+          name: Push to dockerHub
+          command: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker push damonyuan/ss-webgui
+
+  sssocksmgr-build-job:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-{{ checksum "./sssocksmgr/Dockerfile" }}-{{ checksum "./sssocksmgr/entrypoint.sh" }}-{{ checksum "./sssocksmgr/ssmgr.yml" }}-{{ checksum "./sssocksmgr/supervisord.conf" }}
+          paths:
+            - ~/caches/sssocksmgr.tar
+      - run:
+          name: Load Docker image layer cache
+          command: |
+            set +o pipefail
+            docker load -i ~/caches/sssocksmgr.tar | true
+      - run:
+          name: Build application Docker image
+          command: |
+            docker build --cache-from=damonyuan/ss-ss-mgr -t damonyuan/ss-ss-mgr ./sssocksmgr/
+      - run:
+          name: Save Docker image layer cache
+          command: |
+            mkdir -p ~/caches
+            docker save -o ~/caches/sssocksmgr.tar damonyuan/ss-ss-mgr
+      - save_cache:
+          key: v1-{{ checksum "./sssocksmgr/Dockerfile" }}-{{ checksum "./sssocksmgr/entrypoint.sh" }}-{{ checksum "./sssocksmgr/ssmgr.yml" }}-{{ checksum "./sssocksmgr/supervisord.conf" }}
+          paths:
+            - ~/caches/sssocksmgr.tar
+      - run:
+          name: Push to dockerHub
+          command: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker push damonyuan/ss-ss-mgr
+
+
+workflows:
+  version: 2
+  ssmysql-build-job:
+    jobs:
+      - ssmysql-build-job:
+          filters:
+            branches:
+              only:
+                - master
+
+  sswebgui-build-job:
+    jobs:
+      - ssmysql-build-job:
+          filters:
+            branches:
+              only:
+                - master
+
+  sssocksmgr-build-job:
+    jobs:
+      - ssmysql-build-job:
+          filters:
+            branches:
+              only:
+                - master
+
+
+
+

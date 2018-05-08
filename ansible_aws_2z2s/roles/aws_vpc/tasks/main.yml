@@ -1,0 +1,4 @@
+---
+- import_tasks: vpc_2z_2s.yml
+- import_tasks: sg.yml
+- import_tasks: upload_keys.yml

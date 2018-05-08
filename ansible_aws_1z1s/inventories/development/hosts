@@ -1,0 +1,23 @@
+[default]
+
+[default:children]
+manager_group
+sub_managers_group
+workers_group
+
+[manager_group]
+manager ansible_host=127.0.0.1 ansible_port=2202
+
+[manager_group:vars]
+is_manager=true
+
+[sub_managers_group]
+
+[sub_managers_group:vars]
+is_manager=true
+
+[workers_group]
+worker1 ansible_host=127.0.0.1 ansible_port=2222
+
+[workers_group:vars]
+is_manager=false

@@ -1,0 +1,21 @@
+upstream visualizer_app {
+  ip_hash;
+  server {{ manager_1_ip }}:9090;
+  server {{ worker_1_ip }}:9090;
+}
+
+server {
+  listen       80;
+  allow 218.255.188.102/32;
+  deny all;
+  server_name  visualizer.handy.travel visualizer-st.handy.travel;
+  location / {
+      proxy_pass http://visualizer_app;
+      proxy_redirect off;
+      proxy_set_header Host               $host;
+      proxy_set_header X-Forwarded-Host   $host;
+      proxy_set_header X-Forwarded-Server $host;
+      proxy_set_header X-Real-IP          $remote_addr;
+      proxy_set_header X-Forwarded-For    $proxy_add_x_forwarded_for;
+    }
+}

@@ -1,0 +1,51 @@
+---
+- name: create a vpc
+  ec2_vpc_net:
+    region: "{{ aws_region }}"
+    name: "ShadowSocks VPC {{ aws_instance_tags.env }} 1z1s"
+    cidr_block: "{{ aws_vpc_cidr_block }}"
+    tags:
+      Name: "{{ vpc_tags.Name }}"
+      region: "{{ aws_region }}"
+      env: "{{ aws_env }}"
+  register: result
+
+- set_fact: "vpc_id={{ result.vpc.id }}"
+
+- name: add gateway
+  ec2_vpc_igw:
+    region: "{{ aws_region }}"
+    vpc_id: "{{ vpc_id }}"
+    state: present
+    tags:
+      Name: "ShadowSocks VPC {{ aws_instance_tags.env }} igw"
+  register: igw
+
+- name:  create public subnet 1
+  ec2_vpc_subnet:
+    region: "{{ aws_region }}"
+    vpc_id: "{{ vpc_id }}"
+    cidr: "{{ aws_public_subnet_cidr_1 }}"
+    az: "{{ aws_region }}{{ aws_available_zone_1 }}"
+    tags:
+      Name: "shadowsocks_public_1 {{ aws_instance_tags.env }}"
+      env: "{{ aws_env }}"
+      tier: public_subnet_1
+  register: public_subnet_1
+
+- set_fact:
+    public_vpc_subnet_1_id: "{{ public_subnet_1.subnet.id }}"
+    public_vpc_subnet_1_availability_zone: "{{ public_subnet_1.subnet.availability_zone }}"
+
+- name: set public routes 1
+  ec2_vpc_route_table:
+    region: "{{ aws_region }}"
+    vpc_id: "{{ vpc_id }}"
+    tags:
+      Name: shadowsocks_public_1
+      purpose: permit-outbound
+    subnets:
+      - "{{ public_subnet_1.subnet.id }}"
+    routes:
+      - dest: 0.0.0.0/0
+        gateway_id: "{{ igw.gateway_id }}"

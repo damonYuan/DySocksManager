@@ -1,0 +1,11 @@
+---
+# one time fire
+- name: Create an ubuntu instances
+  hosts: localhost
+  gather_facts: yes
+  vars_files:
+    - ./files/production.yml
+  roles:
+    - role: common
+    - role: aws_vpc
+    - role: aws_ec2

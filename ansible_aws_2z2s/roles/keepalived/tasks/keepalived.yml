@@ -1,0 +1,17 @@
+---
+
+- set_fact:
+    private_ip: "{{ item }}"
+  with_items: "{{ ansible_all_ipv4_addresses }}"
+  when: item.startswith(vpc_header)
+
+- name: install keepalived
+  apt: name=keepalived update_cache=yes
+
+
+
+- name: reload keepalived
+  service: name=keepalived state=reloaded
+
+
+

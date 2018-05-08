@@ -1,0 +1,17 @@
+---
+
+- name: copy Vagrantfile
+  template:
+    src: Vagrantfile.j2
+    dest: vagrant/Vagrantfile
+
+- name: start vagrant up
+  shell: |
+      cd vagrant && vagrant status manager
+  register: result
+  ignore_errors: True
+
+- name: vagrant up if no manager
+  shell: |
+      cd vagrant && vagrant up
+  when: "'not created' in result.stdout"

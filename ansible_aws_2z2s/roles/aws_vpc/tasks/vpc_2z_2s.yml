@@ -1,0 +1,148 @@
+---
+- name: create a vpc
+  ec2_vpc_net:
+    region: "{{ aws_region }}"
+    name: "ShadowSocks VPC {{ aws_instance_tags.env }}"
+    cidr_block: "{{ aws_vpc_cidr_block }}"
+    tags:
+      Name: "{{ vpc_tags.Name }}"
+      region: "{{ aws_region }}"
+      env: "{{ aws_env }}"
+  register: result
+
+- set_fact: "vpc_id={{ result.vpc.id }}"
+
+- name: add gateway
+  ec2_vpc_igw:
+    region: "{{ aws_region }}"
+    vpc_id: "{{ vpc_id }}"
+    state: present
+    tags:
+      Name: "ShadowSocks VPC {{ aws_instance_tags.env }} igw"
+  register: igw
+
+- name:  create public subnet 1
+  ec2_vpc_subnet:
+    region: "{{ aws_region }}"
+    vpc_id: "{{ vpc_id }}"
+    cidr: "{{ aws_public_subnet_cidr_1 }}"
+    az: "{{ aws_region }}{{ aws_available_zone_1 }}"
+    tags:
+      Name: "shadowsocks_public_1 {{ aws_instance_tags.env }}"
+      env: "{{ aws_env }}"
+      tier: public_subnet_1
+  register: public_subnet_1
+
+- name: create private subnet 1
+  ec2_vpc_subnet:
+    region: "{{ aws_region }}"
+    vpc_id: "{{ vpc_id }}"
+    cidr: "{{ aws_private_subnet_cidr_1 }}"
+    az: "{{ aws_region }}{{ aws_available_zone_1 }}"
+    tags:
+      Name: "shadowsocks_private_1 {{ aws_instance_tags.env }}"
+      env: "{{ aws_env }}"
+      tier: private_subnet_1
+  register: private_subnet_1
+
+- name:  create public subnet 2
+  ec2_vpc_subnet:
+    region: "{{ aws_region }}"
+    vpc_id: "{{ vpc_id }}"
+    cidr: "{{ aws_public_subnet_cidr_2 }}"
+    az: "{{ aws_region }}{{ aws_available_zone_2 }}"
+    tags:
+      Name: "shadowsocks_public_2 {{ aws_instance_tags.env }}"
+      env: "{{ aws_env }}"
+      tier: public_subnet_2
+  register: public_subnet_2
+
+- name: create private subnet 2
+  ec2_vpc_subnet:
+    region: "{{ aws_region }}"
+    vpc_id: "{{ vpc_id }}"
+    cidr: "{{ aws_private_subnet_cidr_2 }}"
+    az: "{{ aws_region }}{{ aws_available_zone_2 }}"
+    tags:
+      Name: "shadowsocks_private_2 {{ aws_instance_tags.env }}"
+      env: "{{ aws_env }}"
+      tier: private_subnet_2
+  register: private_subnet_2
+
+- set_fact:
+    public_vpc_subnet_1_id: "{{ public_subnet_1.subnet.id }}"
+    public_vpc_subnet_1_availability_zone: "{{ public_subnet_1.subnet.availability_zone }}"
+    private_vpc_subnet_1_id: "{{ private_subnet_1.subnet.id }}"
+    private_vpc_subnet_1_availability_zone: "{{ private_subnet_1.subnet.availability_zone }}"
+    public_vpc_subnet_2_id: "{{ public_subnet_2.subnet.id }}"
+    public_vpc_subnet_2_availability_zone: "{{ public_subnet_2.subnet.availability_zone }}"
+    private_vpc_subnet_2_id: "{{ private_subnet_2.subnet.id }}"
+    private_vpc_subnet_2_availability_zone: "{{ private_subnet_2.subnet.availability_zone }}"
+
+- name: Create new nat gateway for public_vpc_subnet_1
+  ec2_vpc_nat_gateway:
+    subnet_id: "{{ public_vpc_subnet_1_id }}"
+    region: "{{ aws_region }}"
+    wait: yes
+    if_exist_do_not_create: yes
+  register: nat_gateway_1
+
+- name: Create new nat gateway for public_vpc_subnet_2
+  ec2_vpc_nat_gateway:
+    subnet_id: "{{ public_vpc_subnet_2_id }}"
+    region: "{{ aws_region }}"
+    wait: yes
+    if_exist_do_not_create: yes
+  register: nat_gateway_2
+
+- name: set public routes 1
+  ec2_vpc_route_table:
+    region: "{{ aws_region }}"
+    vpc_id: "{{ vpc_id }}"
+    tags:
+      Name: shadowsocks_public_1
+      purpose: permit-outbound
+    subnets:
+      - "{{ public_subnet_1.subnet.id }}"
+    routes:
+      - dest: 0.0.0.0/0
+        gateway_id: "{{ igw.gateway_id }}"
+
+- name: set public routes 2
+  ec2_vpc_route_table:
+    region: "{{ aws_region }}"
+    vpc_id: "{{ vpc_id }}"
+    tags:
+      Name: shadowsocks_public_2
+      purpose: permit-outbound
+    subnets:
+      - "{{ public_subnet_2.subnet.id }}"
+    routes:
+      - dest: 0.0.0.0/0
+        gateway_id: "{{ igw.gateway_id }}"
+
+- name: set private routes for zone 1
+  ec2_vpc_route_table:
+    region: "{{ aws_region }}"
+    vpc_id: "{{ vpc_id }}"
+    tags:
+      Name: shadowsocks_private_1
+      purpose: nat
+    subnets:
+      - "{{ private_subnet_1.subnet.id }}"
+    routes:
+      - dest: 0.0.0.0/0
+        gateway_id: "{{ nat_gateway_1.nat_gateway_id }}"
+
+- name: set private routes for zone 2
+  ec2_vpc_route_table:
+    region: "{{ aws_region }}"
+    vpc_id: "{{ vpc_id }}"
+    tags:
+      Name: shadowsocks_private_2
+      purpose: nat
+    subnets:
+      - "{{ private_subnet_2.subnet.id }}"
+    routes:
+      - dest: 0.0.0.0/0
+        gateway_id: "{{ nat_gateway_2.nat_gateway_id }}"

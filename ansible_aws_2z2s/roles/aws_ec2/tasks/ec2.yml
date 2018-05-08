@@ -1,0 +1,232 @@
+---
+- name: Get the ubuntu xenial ebs ssd AMI
+  ec2_ami_find:
+    name: "ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-*"
+    region: "{{ aws_region }}"
+    sort: name
+    sort_order: descending
+    sort_end: 1
+    no_result_action: fail
+  register: ubuntu_image
+
+# AZ 1
+
+- name: create nginx instance in zone1
+  ec2:
+    image: "{{ ubuntu_image.results[0].ami_id }}"
+    region: "{{ aws_region }}"
+    instance_type: "{{ aws_instance_type }}"
+    count_tag:
+      Name: "{{ aws_instance_tags.Name }}"
+      type: "nginx"
+      env: "{{ aws_instance_tags.env }}"
+    key_name: "{{ aws_key_name }}"
+    vpc_subnet_id: "{{ public_vpc_subnet_1_id }}"
+    private_ip: "{{ nginx_1_ip }}"
+    group: "{{ aws_sg_groups }}"
+    instance_tags:
+      Name: "{{ aws_instance_tags.Name }}"
+      type: "nginx"
+      env: "{{ aws_instance_tags.env }}"
+      bastion: "bastion1"
+    exact_count: "{{ aws_exact_count }}"
+    wait: yes
+    assign_public_ip: yes
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ aws_device_size }}"
+        delete_on_termination: true
+  register: ec2
+
+- name: add the instance to shadowsocks and env groups
+  add_host: hostname={{ item.public_dns_name }} groups=nginx,{{ aws_instance_tags.env }}
+  with_items: "{{ ec2.tagged_instances }}"
+  when: item.private_dns_name is defined
+
+- name: create manager instance in zone1
+  ec2:
+    image: "{{ ubuntu_image.results[0].ami_id }}"
+    region: "{{ aws_region }}"
+    instance_type: "{{ aws_instance_type }}"
+    count_tag:
+      Name: "{{ aws_instance_tags.Name }}"
+      type: "manager"
+      mid: "1"
+      env: "{{ aws_instance_tags.env }}"
+    key_name: "{{ aws_key_name }}"
+    vpc_subnet_id: "{{ private_vpc_subnet_1_id }}"
+    private_ip: "{{ manager_1_ip }}"
+    group: "{{ aws_sg_groups }}"
+    instance_tags:
+      Name: "{{ aws_instance_tags.Name }}"
+      type: "manager"
+      mid: "1"
+      env: "{{ aws_instance_tags.env }}"
+    exact_count: "{{ aws_exact_count }}"
+    wait: yes
+    assign_public_ip: false
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ aws_device_size }}"
+        delete_on_termination: true
+  register: ec2
+
+- name: add the instance to shadowsocks and env groups
+  add_host: hostname={{ item.public_dns_name }} groups=managers,{{ aws_instance_tags.env }}
+  with_items: "{{ ec2.tagged_instances }}"
+  when: item.private_dns_name is defined
+
+- name: create worker instance in zone1
+  ec2:
+    image: "{{ ubuntu_image.results[0].ami_id }}"
+    region: "{{ aws_region }}"
+    instance_type: "{{ aws_instance_type }}"
+    count_tag:
+      Name: "{{ aws_instance_tags.Name }}"
+      type: "worker"
+      wid: "1"
+      env: "{{ aws_instance_tags.env }}"
+    key_name: "{{ aws_key_name }}"
+    vpc_subnet_id: "{{ private_vpc_subnet_1_id }}"
+    private_ip: "{{ worker_1_ip }}"
+    group: "{{ aws_sg_groups }}"
+    instance_tags:
+      Name: "{{ aws_instance_tags.Name }}"
+      type: "worker"
+      wid: "1"
+      env: "{{ aws_instance_tags.env }}"
+    exact_count: "{{ aws_exact_count }}"
+    wait: yes
+    assign_public_ip: false
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ aws_device_size }}"
+        delete_on_termination: true
+  register: ec2
+
+- name: add the instance to shadowsocks and env groups
+  add_host: hostname={{ item.public_dns_name }} groups=workers,{{ aws_instance_tags.env }}
+  with_items: "{{ ec2.tagged_instances }}"
+  when: item.private_dns_name is defined
+
+# AZ 2
+
+- name: create nginx instance in zone2
+  ec2:
+    image: "{{ ubuntu_image.results[0].ami_id }}"
+    region: "{{ aws_region }}"
+    instance_type: "{{ aws_instance_type }}"
+    count_tag:
+      Name: "{{ aws_instance_tags.Name }}"
+      type: "nginx"
+      env: "{{ aws_instance_tags.env }}"
+    key_name: "{{ aws_key_name }}"
+    vpc_subnet_id: "{{ public_vpc_subnet_2_id }}"
+    private_ip: "{{ nginx_2_ip }}"
+    group: "{{ aws_sg_groups }}"
+    instance_tags:
+      Name: "{{ aws_instance_tags.Name }}"
+      type: "nginx"
+      env: "{{ aws_instance_tags.env }}"
+      bastion: "bastion2"
+    exact_count: "{{ aws_exact_count }}"
+    wait: yes
+    assign_public_ip: yes
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ aws_device_size }}"
+        delete_on_termination: true
+  register: ec2
+
+- name: add the instance to shadowsocks and env groups
+  add_host: hostname={{ item.public_dns_name }} groups=nginx,{{ aws_instance_tags.env }}
+  with_items: "{{ ec2.tagged_instances }}"
+  when: item.private_dns_name is defined
+
+- name: create worker instance in zone2
+  ec2:
+    image: "{{ ubuntu_image.results[0].ami_id }}"
+    region: "{{ aws_region }}"
+    instance_type: "{{ aws_instance_type }}"
+    count_tag:
+      Name: "{{ aws_instance_tags.Name }}"
+      type: "worker"
+      wid: "2"
+      env: "{{ aws_instance_tags.env }}"
+    key_name: "{{ aws_key_name }}"
+    vpc_subnet_id: "{{ private_vpc_subnet_2_id }}"
+    private_ip: "{{ worker_2_ip }}"
+    group: "{{ aws_sg_groups }}"
+    instance_tags:
+      Name: "{{ aws_instance_tags.Name }}"
+      type: "worker"
+      wid: "2"
+      env: "{{ aws_instance_tags.env }}"
+    exact_count: "{{ aws_exact_count }}"
+    wait: yes
+    assign_public_ip: false
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ aws_device_size }}"
+        delete_on_termination: true
+  register: ec2
+
+- name: add the instance to shadowsocks and env groups
+  add_host: hostname={{ item.public_dns_name }} groups=workers,{{ aws_instance_tags.env }}
+  with_items: "{{ ec2.tagged_instances }}"
+  when: item.private_dns_name is defined
+
+- name: create worker 3 instance in zone2
+  ec2:
+    image: "{{ ubuntu_image.results[0].ami_id }}"
+    region: "{{ aws_region }}"
+    instance_type: "{{ aws_instance_type }}"
+    count_tag:
+      Name: "{{ aws_instance_tags.Name }}"
+      type: "worker"
+      wid: "3"
+      env: "{{ aws_instance_tags.env }}"
+    key_name: "{{ aws_key_name }}"
+    vpc_subnet_id: "{{ private_vpc_subnet_2_id }}"
+    private_ip: "{{ worker_3_ip }}"
+    group: "{{ aws_sg_groups }}"
+    instance_tags:
+      Name: "{{ aws_instance_tags.Name }}"
+      type: "worker"
+      wid: "3"
+      env: "{{ aws_instance_tags.env }}"
+    exact_count: "{{ aws_exact_count }}"
+    wait: yes
+    assign_public_ip: false
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ aws_device_size }}"
+        delete_on_termination: true
+  register: ec2
+
+- name: add the instance to shadowsocks and env groups
+  add_host: hostname={{ item.public_dns_name }} groups=workers,{{ aws_instance_tags.env }}
+  with_items: "{{ ec2.tagged_instances }}"
+  when: item.private_dns_name is defined
+
+#- name: allocate a new elastic IP and associate it with the instance
+#  ec2_eip:
+#    in_vpc: yes
+#    region: "{{ aws_region }}"
+#    device_id: "{{ item.id }}"
+#    reuse_existing_ip_allowed: yes
+#    release_on_disassociation: yes
+#  with_items: "{{ ec2.tagged_instances }}"
+#  register: eips
+#
+#- name: wait for ssh server to be running
+#  wait_for: host={{ item.public_ip }} port=22 search_regex=OpenSSH
+#  with_items: "{{ eips.results }}"
+#  when: eips.results is defined
+

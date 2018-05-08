@@ -1,0 +1,50 @@
+---
+
+- set_fact:
+    cluster_ip: "{{ item }}"
+  with_items: "{{ ansible_all_ipv4_addresses }}"
+  when: item.startswith(swarm_ip_subnet)
+
+- name: init hosts file
+  shell: |
+    if [ ! -f /etc/hosts ]; then
+      touch /etc/hosts
+    fi
+    if grep -Fxq "{{ hostvars[item]['cluster_ip'] }} {{item}} {{item}}" /etc/hosts
+    then
+      echo "String found in /etc/hosts"
+    else
+      echo "{{ hostvars[item]['cluster_ip'] }} {{item}} {{item}}" >> /etc/hosts
+    fi
+  become: true
+  with_items: "{{ groups['default'] }}"
+
+- name: init swarm
+  shell: |
+    docker swarm init --advertise-addr "{{ hostvars['manager']['cluster_ip'] }}"
+  when: cluster_ip == manager_ip
+  ignore_errors: true
+
+- name: get manager join token
+  shell: |
+    docker swarm join-token -q manager
+  register: manager_token
+  when: cluster_ip == manager_ip
+
+- name: get worker join token
+  shell: |
+    docker swarm join-token -q worker
+  register: worker_token
+  when: cluster_ip == manager_ip
+
+- set_fact:
+    manager_token: "{{ manager_token.stdout }}"
+    worker_token: "{{ worker_token.stdout }}"
+  when: cluster_ip == manager_ip
+
+- name: workers join swarm
+  shell: |
+    docker swarm join --advertise-addr {{ cluster_ip }} --listen-addr {{ cluster_ip }}:2377 --token {{ hostvars['manager']['worker_token'] }} {{ manager_ip }}:2377
+  when: is_manager == "false"
+  ignore_errors: true
+

@@ -1,0 +1,9 @@
+---
+- name: upload public key
+  ec2_key:
+    name: "{{ aws_key_name }}"
+    key_material: "{{ item }}"
+    region: "{{ aws_region }}"
+    state: present
+    force: false
+  with_file: files/shadowsocks.pem.pub

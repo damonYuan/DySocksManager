@@ -1,0 +1,42 @@
+---
+- name: create hosts
+  hosts: localhost
+  vars_files:
+    - ./files/development.yml
+  roles:
+    - role: vagrant
+
+- name: init hosts
+  hosts: default
+  remote_user: "{{ ubuntu_user }}"
+  become: yes
+  gather_facts: no
+  strategy: free
+  pre_tasks:
+    - name: install python
+      raw: apt-get install -y python-minimal
+  vars_files:
+    - ./files/development.yml
+  roles:
+    - role: docker
+
+- name: config swarm
+  hosts: default
+  remote_user: "{{ ubuntu_user }}"
+  become: yes
+  gather_facts: yes
+  vars_files:
+    - ./files/development.yml
+  roles:
+    - role: vagrant_swarm
+
+- name: deploy docker service
+  hosts: manager
+  remote_user: "{{ ubuntu_user }}"
+  become: yes
+  gather_facts: False
+  vars_files:
+    - ./files/development.yml
+    - ./vault/development-secret.yml
+  roles:
+    - role: deploy

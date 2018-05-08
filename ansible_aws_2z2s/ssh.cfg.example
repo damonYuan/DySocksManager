@@ -1,0 +1,28 @@
+Host *
+    User ubuntu
+    IdentityFile ./vault/shadowsocks.pem
+    IdentitiesOnly yes
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+
+Host 10.1.*.*
+  User ubuntu
+  IdentityFile ./vault/shadowsocks.pem
+  ProxyCommand ssh -i ./vault/shadowsocks.pem -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ubuntu@13.114.59.119 nc %h %p
+
+Host 10.0.*.*
+  User ubuntu
+  IdentityFile ./vault/shadowsocks.pem
+  ProxyCommand ssh -i ./vault/shadowsocks.pem -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ubuntu@52.199.83.33 nc %h %p
+
+Host bastion-staging
+  HostName 13.114.59.119
+  User ubuntu
+  IdentityFile ./vault/shadowsocks.pem
+  ForwardAgent yes
+
+Host bastion-production
+  HostName 52.199.83.33
+  User ubuntu
+  IdentityFile ./vault/shadowsocks.pem
+  ForwardAgent yes

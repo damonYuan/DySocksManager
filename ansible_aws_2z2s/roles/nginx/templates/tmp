@@ -1,0 +1,1414 @@
+upstream ss_50000 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50000;
+  server {{ worker_1_ip }}:50000;
+  server {{ worker_2_ip }}:50000;
+  server {{ worker_3_ip }}:50000;
+}
+
+upstream ss_50001 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50001;
+  server {{ worker_1_ip }}:50001;
+  server {{ worker_2_ip }}:50001;
+  server {{ worker_3_ip }}:50001;
+}
+
+upstream ss_50002 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50002;
+  server {{ worker_1_ip }}:50002;
+  server {{ worker_2_ip }}:50002;
+  server {{ worker_3_ip }}:50002;
+}
+
+upstream ss_50003 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50003;
+  server {{ worker_1_ip }}:50003;
+  server {{ worker_2_ip }}:50003;
+  server {{ worker_3_ip }}:50003;
+}
+
+upstream ss_50004 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50004;
+  server {{ worker_1_ip }}:50004;
+  server {{ worker_2_ip }}:50004;
+  server {{ worker_3_ip }}:50004;
+}
+
+upstream ss_50005 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50005;
+  server {{ worker_1_ip }}:50005;
+  server {{ worker_2_ip }}:50005;
+  server {{ worker_3_ip }}:50005;
+}
+
+upstream ss_50006 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50006;
+  server {{ worker_1_ip }}:50006;
+  server {{ worker_2_ip }}:50006;
+  server {{ worker_3_ip }}:50006;
+}
+
+upstream ss_50007 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50007;
+  server {{ worker_1_ip }}:50007;
+  server {{ worker_2_ip }}:50007;
+  server {{ worker_3_ip }}:50007;
+}
+
+upstream ss_50008 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50008;
+  server {{ worker_1_ip }}:50008;
+  server {{ worker_2_ip }}:50008;
+  server {{ worker_3_ip }}:50008;
+}
+
+upstream ss_50009 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50009;
+  server {{ worker_1_ip }}:50009;
+  server {{ worker_2_ip }}:50009;
+  server {{ worker_3_ip }}:50009;
+}
+
+upstream ss_50010 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50010;
+  server {{ worker_1_ip }}:50010;
+  server {{ worker_2_ip }}:50010;
+  server {{ worker_3_ip }}:50010;
+}
+
+upstream ss_50011 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50011;
+  server {{ worker_1_ip }}:50011;
+  server {{ worker_2_ip }}:50011;
+  server {{ worker_3_ip }}:50011;
+}
+
+upstream ss_50012 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50012;
+  server {{ worker_1_ip }}:50012;
+  server {{ worker_2_ip }}:50012;
+  server {{ worker_3_ip }}:50012;
+}
+
+upstream ss_50013 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50013;
+  server {{ worker_1_ip }}:50013;
+  server {{ worker_2_ip }}:50013;
+  server {{ worker_3_ip }}:50013;
+}
+
+upstream ss_50014 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50014;
+  server {{ worker_1_ip }}:50014;
+  server {{ worker_2_ip }}:50014;
+  server {{ worker_3_ip }}:50014;
+}
+
+upstream ss_50015 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50015;
+  server {{ worker_1_ip }}:50015;
+  server {{ worker_2_ip }}:50015;
+  server {{ worker_3_ip }}:50015;
+}
+
+upstream ss_50016 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50016;
+  server {{ worker_1_ip }}:50016;
+  server {{ worker_2_ip }}:50016;
+  server {{ worker_3_ip }}:50016;
+}
+
+upstream ss_50017 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50017;
+  server {{ worker_1_ip }}:50017;
+  server {{ worker_2_ip }}:50017;
+  server {{ worker_3_ip }}:50017;
+}
+
+upstream ss_50018 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50018;
+  server {{ worker_1_ip }}:50018;
+  server {{ worker_2_ip }}:50018;
+  server {{ worker_3_ip }}:50018;
+}
+
+upstream ss_50019 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50019;
+  server {{ worker_1_ip }}:50019;
+  server {{ worker_2_ip }}:50019;
+  server {{ worker_3_ip }}:50019;
+}
+
+upstream ss_50020 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50020;
+  server {{ worker_1_ip }}:50020;
+  server {{ worker_2_ip }}:50020;
+  server {{ worker_3_ip }}:50020;
+}
+
+upstream ss_50021 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50021;
+  server {{ worker_1_ip }}:50021;
+  server {{ worker_2_ip }}:50021;
+  server {{ worker_3_ip }}:50021;
+}
+
+upstream ss_50022 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50022;
+  server {{ worker_1_ip }}:50022;
+  server {{ worker_2_ip }}:50022;
+  server {{ worker_3_ip }}:50022;
+}
+
+upstream ss_50023 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50023;
+  server {{ worker_1_ip }}:50023;
+  server {{ worker_2_ip }}:50023;
+  server {{ worker_3_ip }}:50023;
+}
+
+upstream ss_50024 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50024;
+  server {{ worker_1_ip }}:50024;
+  server {{ worker_2_ip }}:50024;
+  server {{ worker_3_ip }}:50024;
+}
+
+upstream ss_50025 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50025;
+  server {{ worker_1_ip }}:50025;
+  server {{ worker_2_ip }}:50025;
+  server {{ worker_3_ip }}:50025;
+}
+
+upstream ss_50026 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50026;
+  server {{ worker_1_ip }}:50026;
+  server {{ worker_2_ip }}:50026;
+  server {{ worker_3_ip }}:50026;
+}
+
+upstream ss_50027 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50027;
+  server {{ worker_1_ip }}:50027;
+  server {{ worker_2_ip }}:50027;
+  server {{ worker_3_ip }}:50027;
+}
+
+upstream ss_50028 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50028;
+  server {{ worker_1_ip }}:50028;
+  server {{ worker_2_ip }}:50028;
+  server {{ worker_3_ip }}:50028;
+}
+
+upstream ss_50029 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50029;
+  server {{ worker_1_ip }}:50029;
+  server {{ worker_2_ip }}:50029;
+  server {{ worker_3_ip }}:50029;
+}
+
+upstream ss_50030 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50030;
+  server {{ worker_1_ip }}:50030;
+  server {{ worker_2_ip }}:50030;
+  server {{ worker_3_ip }}:50030;
+}
+
+upstream ss_50031 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50031;
+  server {{ worker_1_ip }}:50031;
+  server {{ worker_2_ip }}:50031;
+  server {{ worker_3_ip }}:50031;
+}
+
+upstream ss_50032 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50032;
+  server {{ worker_1_ip }}:50032;
+  server {{ worker_2_ip }}:50032;
+  server {{ worker_3_ip }}:50032;
+}
+
+upstream ss_50033 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50033;
+  server {{ worker_1_ip }}:50033;
+  server {{ worker_2_ip }}:50033;
+  server {{ worker_3_ip }}:50033;
+}
+
+upstream ss_50034 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50034;
+  server {{ worker_1_ip }}:50034;
+  server {{ worker_2_ip }}:50034;
+  server {{ worker_3_ip }}:50034;
+}
+
+upstream ss_50035 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50035;
+  server {{ worker_1_ip }}:50035;
+  server {{ worker_2_ip }}:50035;
+  server {{ worker_3_ip }}:50035;
+}
+
+upstream ss_50036 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50036;
+  server {{ worker_1_ip }}:50036;
+  server {{ worker_2_ip }}:50036;
+  server {{ worker_3_ip }}:50036;
+}
+
+upstream ss_50037 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50037;
+  server {{ worker_1_ip }}:50037;
+  server {{ worker_2_ip }}:50037;
+  server {{ worker_3_ip }}:50037;
+}
+
+upstream ss_50038 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50038;
+  server {{ worker_1_ip }}:50038;
+  server {{ worker_2_ip }}:50038;
+  server {{ worker_3_ip }}:50038;
+}
+
+upstream ss_50039 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50039;
+  server {{ worker_1_ip }}:50039;
+  server {{ worker_2_ip }}:50039;
+  server {{ worker_3_ip }}:50039;
+}
+
+upstream ss_50040 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50040;
+  server {{ worker_1_ip }}:50040;
+  server {{ worker_2_ip }}:50040;
+  server {{ worker_3_ip }}:50040;
+}
+
+upstream ss_50041 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50041;
+  server {{ worker_1_ip }}:50041;
+  server {{ worker_2_ip }}:50041;
+  server {{ worker_3_ip }}:50041;
+}
+
+upstream ss_50042 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50042;
+  server {{ worker_1_ip }}:50042;
+  server {{ worker_2_ip }}:50042;
+  server {{ worker_3_ip }}:50042;
+}
+
+upstream ss_50043 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50043;
+  server {{ worker_1_ip }}:50043;
+  server {{ worker_2_ip }}:50043;
+  server {{ worker_3_ip }}:50043;
+}
+
+upstream ss_50044 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50044;
+  server {{ worker_1_ip }}:50044;
+  server {{ worker_2_ip }}:50044;
+  server {{ worker_3_ip }}:50044;
+}
+
+upstream ss_50045 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50045;
+  server {{ worker_1_ip }}:50045;
+  server {{ worker_2_ip }}:50045;
+  server {{ worker_3_ip }}:50045;
+}
+
+upstream ss_50046 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50046;
+  server {{ worker_1_ip }}:50046;
+  server {{ worker_2_ip }}:50046;
+  server {{ worker_3_ip }}:50046;
+}
+
+upstream ss_50047 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50047;
+  server {{ worker_1_ip }}:50047;
+  server {{ worker_2_ip }}:50047;
+  server {{ worker_3_ip }}:50047;
+}
+
+upstream ss_50048 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50048;
+  server {{ worker_1_ip }}:50048;
+  server {{ worker_2_ip }}:50048;
+  server {{ worker_3_ip }}:50048;
+}
+
+upstream ss_50049 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50049;
+  server {{ worker_1_ip }}:50049;
+  server {{ worker_2_ip }}:50049;
+  server {{ worker_3_ip }}:50049;
+}
+
+upstream ss_50050 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50050;
+  server {{ worker_1_ip }}:50050;
+  server {{ worker_2_ip }}:50050;
+  server {{ worker_3_ip }}:50050;
+}
+
+upstream ss_50051 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50051;
+  server {{ worker_1_ip }}:50051;
+  server {{ worker_2_ip }}:50051;
+  server {{ worker_3_ip }}:50051;
+}
+
+upstream ss_50052 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50052;
+  server {{ worker_1_ip }}:50052;
+  server {{ worker_2_ip }}:50052;
+  server {{ worker_3_ip }}:50052;
+}
+
+upstream ss_50053 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50053;
+  server {{ worker_1_ip }}:50053;
+  server {{ worker_2_ip }}:50053;
+  server {{ worker_3_ip }}:50053;
+}
+
+upstream ss_50054 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50054;
+  server {{ worker_1_ip }}:50054;
+  server {{ worker_2_ip }}:50054;
+  server {{ worker_3_ip }}:50054;
+}
+
+upstream ss_50055 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50055;
+  server {{ worker_1_ip }}:50055;
+  server {{ worker_2_ip }}:50055;
+  server {{ worker_3_ip }}:50055;
+}
+
+upstream ss_50056 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50056;
+  server {{ worker_1_ip }}:50056;
+  server {{ worker_2_ip }}:50056;
+  server {{ worker_3_ip }}:50056;
+}
+
+upstream ss_50057 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50057;
+  server {{ worker_1_ip }}:50057;
+  server {{ worker_2_ip }}:50057;
+  server {{ worker_3_ip }}:50057;
+}
+
+upstream ss_50058 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50058;
+  server {{ worker_1_ip }}:50058;
+  server {{ worker_2_ip }}:50058;
+  server {{ worker_3_ip }}:50058;
+}
+
+upstream ss_50059 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50059;
+  server {{ worker_1_ip }}:50059;
+  server {{ worker_2_ip }}:50059;
+  server {{ worker_3_ip }}:50059;
+}
+
+upstream ss_50060 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50060;
+  server {{ worker_1_ip }}:50060;
+  server {{ worker_2_ip }}:50060;
+  server {{ worker_3_ip }}:50060;
+}
+
+upstream ss_50061 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50061;
+  server {{ worker_1_ip }}:50061;
+  server {{ worker_2_ip }}:50061;
+  server {{ worker_3_ip }}:50061;
+}
+
+upstream ss_50062 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50062;
+  server {{ worker_1_ip }}:50062;
+  server {{ worker_2_ip }}:50062;
+  server {{ worker_3_ip }}:50062;
+}
+
+upstream ss_50063 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50063;
+  server {{ worker_1_ip }}:50063;
+  server {{ worker_2_ip }}:50063;
+  server {{ worker_3_ip }}:50063;
+}
+
+upstream ss_50064 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50064;
+  server {{ worker_1_ip }}:50064;
+  server {{ worker_2_ip }}:50064;
+  server {{ worker_3_ip }}:50064;
+}
+
+upstream ss_50065 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50065;
+  server {{ worker_1_ip }}:50065;
+  server {{ worker_2_ip }}:50065;
+  server {{ worker_3_ip }}:50065;
+}
+
+upstream ss_50066 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50066;
+  server {{ worker_1_ip }}:50066;
+  server {{ worker_2_ip }}:50066;
+  server {{ worker_3_ip }}:50066;
+}
+
+upstream ss_50067 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50067;
+  server {{ worker_1_ip }}:50067;
+  server {{ worker_2_ip }}:50067;
+  server {{ worker_3_ip }}:50067;
+}
+
+upstream ss_50068 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50068;
+  server {{ worker_1_ip }}:50068;
+  server {{ worker_2_ip }}:50068;
+  server {{ worker_3_ip }}:50068;
+}
+
+upstream ss_50069 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50069;
+  server {{ worker_1_ip }}:50069;
+  server {{ worker_2_ip }}:50069;
+  server {{ worker_3_ip }}:50069;
+}
+
+upstream ss_50070 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50070;
+  server {{ worker_1_ip }}:50070;
+  server {{ worker_2_ip }}:50070;
+  server {{ worker_3_ip }}:50070;
+}
+
+upstream ss_50071 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50071;
+  server {{ worker_1_ip }}:50071;
+  server {{ worker_2_ip }}:50071;
+  server {{ worker_3_ip }}:50071;
+}
+
+upstream ss_50072 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50072;
+  server {{ worker_1_ip }}:50072;
+  server {{ worker_2_ip }}:50072;
+  server {{ worker_3_ip }}:50072;
+}
+
+upstream ss_50073 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50073;
+  server {{ worker_1_ip }}:50073;
+  server {{ worker_2_ip }}:50073;
+  server {{ worker_3_ip }}:50073;
+}
+
+upstream ss_50074 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50074;
+  server {{ worker_1_ip }}:50074;
+  server {{ worker_2_ip }}:50074;
+  server {{ worker_3_ip }}:50074;
+}
+
+upstream ss_50075 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50075;
+  server {{ worker_1_ip }}:50075;
+  server {{ worker_2_ip }}:50075;
+  server {{ worker_3_ip }}:50075;
+}
+
+upstream ss_50076 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50076;
+  server {{ worker_1_ip }}:50076;
+  server {{ worker_2_ip }}:50076;
+  server {{ worker_3_ip }}:50076;
+}
+
+upstream ss_50077 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50077;
+  server {{ worker_1_ip }}:50077;
+  server {{ worker_2_ip }}:50077;
+  server {{ worker_3_ip }}:50077;
+}
+
+upstream ss_50078 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50078;
+  server {{ worker_1_ip }}:50078;
+  server {{ worker_2_ip }}:50078;
+  server {{ worker_3_ip }}:50078;
+}
+
+upstream ss_50079 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50079;
+  server {{ worker_1_ip }}:50079;
+  server {{ worker_2_ip }}:50079;
+  server {{ worker_3_ip }}:50079;
+}
+
+upstream ss_50080 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50080;
+  server {{ worker_1_ip }}:50080;
+  server {{ worker_2_ip }}:50080;
+  server {{ worker_3_ip }}:50080;
+}
+
+upstream ss_50081 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50081;
+  server {{ worker_1_ip }}:50081;
+  server {{ worker_2_ip }}:50081;
+  server {{ worker_3_ip }}:50081;
+}
+
+upstream ss_50082 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50082;
+  server {{ worker_1_ip }}:50082;
+  server {{ worker_2_ip }}:50082;
+  server {{ worker_3_ip }}:50082;
+}
+
+upstream ss_50083 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50083;
+  server {{ worker_1_ip }}:50083;
+  server {{ worker_2_ip }}:50083;
+  server {{ worker_3_ip }}:50083;
+}
+
+upstream ss_50084 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50084;
+  server {{ worker_1_ip }}:50084;
+  server {{ worker_2_ip }}:50084;
+  server {{ worker_3_ip }}:50084;
+}
+
+upstream ss_50085 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50085;
+  server {{ worker_1_ip }}:50085;
+  server {{ worker_2_ip }}:50085;
+  server {{ worker_3_ip }}:50085;
+}
+
+upstream ss_50086 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50086;
+  server {{ worker_1_ip }}:50086;
+  server {{ worker_2_ip }}:50086;
+  server {{ worker_3_ip }}:50086;
+}
+
+upstream ss_50087 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50087;
+  server {{ worker_1_ip }}:50087;
+  server {{ worker_2_ip }}:50087;
+  server {{ worker_3_ip }}:50087;
+}
+
+upstream ss_50088 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50088;
+  server {{ worker_1_ip }}:50088;
+  server {{ worker_2_ip }}:50088;
+  server {{ worker_3_ip }}:50088;
+}
+
+upstream ss_50089 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50089;
+  server {{ worker_1_ip }}:50089;
+  server {{ worker_2_ip }}:50089;
+  server {{ worker_3_ip }}:50089;
+}
+
+upstream ss_50090 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50090;
+  server {{ worker_1_ip }}:50090;
+  server {{ worker_2_ip }}:50090;
+  server {{ worker_3_ip }}:50090;
+}
+
+upstream ss_50091 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50091;
+  server {{ worker_1_ip }}:50091;
+  server {{ worker_2_ip }}:50091;
+  server {{ worker_3_ip }}:50091;
+}
+
+upstream ss_50092 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50092;
+  server {{ worker_1_ip }}:50092;
+  server {{ worker_2_ip }}:50092;
+  server {{ worker_3_ip }}:50092;
+}
+
+upstream ss_50093 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50093;
+  server {{ worker_1_ip }}:50093;
+  server {{ worker_2_ip }}:50093;
+  server {{ worker_3_ip }}:50093;
+}
+
+upstream ss_50094 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50094;
+  server {{ worker_1_ip }}:50094;
+  server {{ worker_2_ip }}:50094;
+  server {{ worker_3_ip }}:50094;
+}
+
+upstream ss_50095 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50095;
+  server {{ worker_1_ip }}:50095;
+  server {{ worker_2_ip }}:50095;
+  server {{ worker_3_ip }}:50095;
+}
+
+upstream ss_50096 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50096;
+  server {{ worker_1_ip }}:50096;
+  server {{ worker_2_ip }}:50096;
+  server {{ worker_3_ip }}:50096;
+}
+
+upstream ss_50097 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50097;
+  server {{ worker_1_ip }}:50097;
+  server {{ worker_2_ip }}:50097;
+  server {{ worker_3_ip }}:50097;
+}
+
+upstream ss_50098 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50098;
+  server {{ worker_1_ip }}:50098;
+  server {{ worker_2_ip }}:50098;
+  server {{ worker_3_ip }}:50098;
+}
+
+upstream ss_50099 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50099;
+  server {{ worker_1_ip }}:50099;
+  server {{ worker_2_ip }}:50099;
+  server {{ worker_3_ip }}:50099;
+}
+
+upstream ss_50100 {
+  hash $remote_addr consistent;
+  server {{ manager_1_ip }}:50100;
+  server {{ worker_1_ip }}:50100;
+  server {{ worker_2_ip }}:50100;
+  server {{ worker_3_ip }}:50100;
+}
+
+server {
+  listen       50000;
+  proxy_pass ss_50000;
+  error_log /var/log/nginx/error_ss_50000.log;
+}
+
+server {
+  listen       50001;
+  proxy_pass ss_50001;
+  error_log /var/log/nginx/error_ss_50001.log;
+}
+
+server {
+  listen       50002;
+  proxy_pass ss_50002;
+  error_log /var/log/nginx/error_ss_50002.log;
+}
+
+server {
+  listen       50003;
+  proxy_pass ss_50003;
+  error_log /var/log/nginx/error_ss_50003.log;
+}
+
+server {
+  listen       50004;
+  proxy_pass ss_50004;
+  error_log /var/log/nginx/error_ss_50004.log;
+}
+
+server {
+  listen       50005;
+  proxy_pass ss_50005;
+  error_log /var/log/nginx/error_ss_50005.log;
+}
+
+server {
+  listen       50006;
+  proxy_pass ss_50006;
+  error_log /var/log/nginx/error_ss_50006.log;
+}
+
+server {
+  listen       50007;
+  proxy_pass ss_50007;
+  error_log /var/log/nginx/error_ss_50007.log;
+}
+
+server {
+  listen       50008;
+  proxy_pass ss_50008;
+  error_log /var/log/nginx/error_ss_50008.log;
+}
+
+server {
+  listen       50009;
+  proxy_pass ss_50009;
+  error_log /var/log/nginx/error_ss_50009.log;
+}
+
+server {
+  listen       50010;
+  proxy_pass ss_50010;
+  error_log /var/log/nginx/error_ss_50010.log;
+}
+
+server {
+  listen       50011;
+  proxy_pass ss_50011;
+  error_log /var/log/nginx/error_ss_50011.log;
+}
+
+server {
+  listen       50012;
+  proxy_pass ss_50012;
+  error_log /var/log/nginx/error_ss_50012.log;
+}
+
+server {
+  listen       50013;
+  proxy_pass ss_50013;
+  error_log /var/log/nginx/error_ss_50013.log;
+}
+
+server {
+  listen       50014;
+  proxy_pass ss_50014;
+  error_log /var/log/nginx/error_ss_50014.log;
+}
+
+server {
+  listen       50015;
+  proxy_pass ss_50015;
+  error_log /var/log/nginx/error_ss_50015.log;
+}
+
+server {
+  listen       50016;
+  proxy_pass ss_50016;
+  error_log /var/log/nginx/error_ss_50016.log;
+}
+
+server {
+  listen       50017;
+  proxy_pass ss_50017;
+  error_log /var/log/nginx/error_ss_50017.log;
+}
+
+server {
+  listen       50018;
+  proxy_pass ss_50018;
+  error_log /var/log/nginx/error_ss_50018.log;
+}
+
+server {
+  listen       50019;
+  proxy_pass ss_50019;
+  error_log /var/log/nginx/error_ss_50019.log;
+}
+
+server {
+  listen       50020;
+  proxy_pass ss_50020;
+  error_log /var/log/nginx/error_ss_50020.log;
+}
+
+server {
+  listen       50021;
+  proxy_pass ss_50021;
+  error_log /var/log/nginx/error_ss_50021.log;
+}
+
+server {
+  listen       50022;
+  proxy_pass ss_50022;
+  error_log /var/log/nginx/error_ss_50022.log;
+}
+
+server {
+  listen       50023;
+  proxy_pass ss_50023;
+  error_log /var/log/nginx/error_ss_50023.log;
+}
+
+server {
+  listen       50024;
+  proxy_pass ss_50024;
+  error_log /var/log/nginx/error_ss_50024.log;
+}
+
+server {
+  listen       50025;
+  proxy_pass ss_50025;
+  error_log /var/log/nginx/error_ss_50025.log;
+}
+
+server {
+  listen       50026;
+  proxy_pass ss_50026;
+  error_log /var/log/nginx/error_ss_50026.log;
+}
+
+server {
+  listen       50027;
+  proxy_pass ss_50027;
+  error_log /var/log/nginx/error_ss_50027.log;
+}
+
+server {
+  listen       50028;
+  proxy_pass ss_50028;
+  error_log /var/log/nginx/error_ss_50028.log;
+}
+
+server {
+  listen       50029;
+  proxy_pass ss_50029;
+  error_log /var/log/nginx/error_ss_50029.log;
+}
+
+server {
+  listen       50030;
+  proxy_pass ss_50030;
+  error_log /var/log/nginx/error_ss_50030.log;
+}
+
+server {
+  listen       50031;
+  proxy_pass ss_50031;
+  error_log /var/log/nginx/error_ss_50031.log;
+}
+
+server {
+  listen       50032;
+  proxy_pass ss_50032;
+  error_log /var/log/nginx/error_ss_50032.log;
+}
+
+server {
+  listen       50033;
+  proxy_pass ss_50033;
+  error_log /var/log/nginx/error_ss_50033.log;
+}
+
+server {
+  listen       50034;
+  proxy_pass ss_50034;
+  error_log /var/log/nginx/error_ss_50034.log;
+}
+
+server {
+  listen       50035;
+  proxy_pass ss_50035;
+  error_log /var/log/nginx/error_ss_50035.log;
+}
+
+server {
+  listen       50036;
+  proxy_pass ss_50036;
+  error_log /var/log/nginx/error_ss_50036.log;
+}
+
+server {
+  listen       50037;
+  proxy_pass ss_50037;
+  error_log /var/log/nginx/error_ss_50037.log;
+}
+
+server {
+  listen       50038;
+  proxy_pass ss_50038;
+  error_log /var/log/nginx/error_ss_50038.log;
+}
+
+server {
+  listen       50039;
+  proxy_pass ss_50039;
+  error_log /var/log/nginx/error_ss_50039.log;
+}
+
+server {
+  listen       50040;
+  proxy_pass ss_50040;
+  error_log /var/log/nginx/error_ss_50040.log;
+}
+
+server {
+  listen       50041;
+  proxy_pass ss_50041;
+  error_log /var/log/nginx/error_ss_50041.log;
+}
+
+server {
+  listen       50042;
+  proxy_pass ss_50042;
+  error_log /var/log/nginx/error_ss_50042.log;
+}
+
+server {
+  listen       50043;
+  proxy_pass ss_50043;
+  error_log /var/log/nginx/error_ss_50043.log;
+}
+
+server {
+  listen       50044;
+  proxy_pass ss_50044;
+  error_log /var/log/nginx/error_ss_50044.log;
+}
+
+server {
+  listen       50045;
+  proxy_pass ss_50045;
+  error_log /var/log/nginx/error_ss_50045.log;
+}
+
+server {
+  listen       50046;
+  proxy_pass ss_50046;
+  error_log /var/log/nginx/error_ss_50046.log;
+}
+
+server {
+  listen       50047;
+  proxy_pass ss_50047;
+  error_log /var/log/nginx/error_ss_50047.log;
+}
+
+server {
+  listen       50048;
+  proxy_pass ss_50048;
+  error_log /var/log/nginx/error_ss_50048.log;
+}
+
+server {
+  listen       50049;
+  proxy_pass ss_50049;
+  error_log /var/log/nginx/error_ss_50049.log;
+}
+
+server {
+  listen       50050;
+  proxy_pass ss_50050;
+  error_log /var/log/nginx/error_ss_50050.log;
+}
+
+server {
+  listen       50051;
+  proxy_pass ss_50051;
+  error_log /var/log/nginx/error_ss_50051.log;
+}
+
+server {
+  listen       50052;
+  proxy_pass ss_50052;
+  error_log /var/log/nginx/error_ss_50052.log;
+}
+
+server {
+  listen       50053;
+  proxy_pass ss_50053;
+  error_log /var/log/nginx/error_ss_50053.log;
+}
+
+server {
+  listen       50054;
+  proxy_pass ss_50054;
+  error_log /var/log/nginx/error_ss_50054.log;
+}
+
+server {
+  listen       50055;
+  proxy_pass ss_50055;
+  error_log /var/log/nginx/error_ss_50055.log;
+}
+
+server {
+  listen       50056;
+  proxy_pass ss_50056;
+  error_log /var/log/nginx/error_ss_50056.log;
+}
+
+server {
+  listen       50057;
+  proxy_pass ss_50057;
+  error_log /var/log/nginx/error_ss_50057.log;
+}
+
+server {
+  listen       50058;
+  proxy_pass ss_50058;
+  error_log /var/log/nginx/error_ss_50058.log;
+}
+
+server {
+  listen       50059;
+  proxy_pass ss_50059;
+  error_log /var/log/nginx/error_ss_50059.log;
+}
+
+server {
+  listen       50060;
+  proxy_pass ss_50060;
+  error_log /var/log/nginx/error_ss_50060.log;
+}
+
+server {
+  listen       50061;
+  proxy_pass ss_50061;
+  error_log /var/log/nginx/error_ss_50061.log;
+}
+
+server {
+  listen       50062;
+  proxy_pass ss_50062;
+  error_log /var/log/nginx/error_ss_50062.log;
+}
+
+server {
+  listen       50063;
+  proxy_pass ss_50063;
+  error_log /var/log/nginx/error_ss_50063.log;
+}
+
+server {
+  listen       50064;
+  proxy_pass ss_50064;
+  error_log /var/log/nginx/error_ss_50064.log;
+}
+
+server {
+  listen       50065;
+  proxy_pass ss_50065;
+  error_log /var/log/nginx/error_ss_50065.log;
+}
+
+server {
+  listen       50066;
+  proxy_pass ss_50066;
+  error_log /var/log/nginx/error_ss_50066.log;
+}
+
+server {
+  listen       50067;
+  proxy_pass ss_50067;
+  error_log /var/log/nginx/error_ss_50067.log;
+}
+
+server {
+  listen       50068;
+  proxy_pass ss_50068;
+  error_log /var/log/nginx/error_ss_50068.log;
+}
+
+server {
+  listen       50069;
+  proxy_pass ss_50069;
+  error_log /var/log/nginx/error_ss_50069.log;
+}
+
+server {
+  listen       50070;
+  proxy_pass ss_50070;
+  error_log /var/log/nginx/error_ss_50070.log;
+}
+
+server {
+  listen       50071;
+  proxy_pass ss_50071;
+  error_log /var/log/nginx/error_ss_50071.log;
+}
+
+server {
+  listen       50072;
+  proxy_pass ss_50072;
+  error_log /var/log/nginx/error_ss_50072.log;
+}
+
+server {
+  listen       50073;
+  proxy_pass ss_50073;
+  error_log /var/log/nginx/error_ss_50073.log;
+}
+
+server {
+  listen       50074;
+  proxy_pass ss_50074;
+  error_log /var/log/nginx/error_ss_50074.log;
+}
+
+server {
+  listen       50075;
+  proxy_pass ss_50075;
+  error_log /var/log/nginx/error_ss_50075.log;
+}
+
+server {
+  listen       50076;
+  proxy_pass ss_50076;
+  error_log /var/log/nginx/error_ss_50076.log;
+}
+
+server {
+  listen       50077;
+  proxy_pass ss_50077;
+  error_log /var/log/nginx/error_ss_50077.log;
+}
+
+server {
+  listen       50078;
+  proxy_pass ss_50078;
+  error_log /var/log/nginx/error_ss_50078.log;
+}
+
+server {
+  listen       50079;
+  proxy_pass ss_50079;
+  error_log /var/log/nginx/error_ss_50079.log;
+}
+
+server {
+  listen       50080;
+  proxy_pass ss_50080;
+  error_log /var/log/nginx/error_ss_50080.log;
+}
+
+server {
+  listen       50081;
+  proxy_pass ss_50081;
+  error_log /var/log/nginx/error_ss_50081.log;
+}
+
+server {
+  listen       50082;
+  proxy_pass ss_50082;
+  error_log /var/log/nginx/error_ss_50082.log;
+}
+
+server {
+  listen       50083;
+  proxy_pass ss_50083;
+  error_log /var/log/nginx/error_ss_50083.log;
+}
+
+server {
+  listen       50084;
+  proxy_pass ss_50084;
+  error_log /var/log/nginx/error_ss_50084.log;
+}
+
+server {
+  listen       50085;
+  proxy_pass ss_50085;
+  error_log /var/log/nginx/error_ss_50085.log;
+}
+
+server {
+  listen       50086;
+  proxy_pass ss_50086;
+  error_log /var/log/nginx/error_ss_50086.log;
+}
+
+server {
+  listen       50087;
+  proxy_pass ss_50087;
+  error_log /var/log/nginx/error_ss_50087.log;
+}
+
+server {
+  listen       50088;
+  proxy_pass ss_50088;
+  error_log /var/log/nginx/error_ss_50088.log;
+}
+
+server {
+  listen       50089;
+  proxy_pass ss_50089;
+  error_log /var/log/nginx/error_ss_50089.log;
+}
+
+server {
+  listen       50090;
+  proxy_pass ss_50090;
+  error_log /var/log/nginx/error_ss_50090.log;
+}
+
+server {
+  listen       50091;
+  proxy_pass ss_50091;
+  error_log /var/log/nginx/error_ss_50091.log;
+}
+
+server {
+  listen       50092;
+  proxy_pass ss_50092;
+  error_log /var/log/nginx/error_ss_50092.log;
+}
+
+server {
+  listen       50093;
+  proxy_pass ss_50093;
+  error_log /var/log/nginx/error_ss_50093.log;
+}
+
+server {
+  listen       50094;
+  proxy_pass ss_50094;
+  error_log /var/log/nginx/error_ss_50094.log;
+}
+
+server {
+  listen       50095;
+  proxy_pass ss_50095;
+  error_log /var/log/nginx/error_ss_50095.log;
+}
+
+server {
+  listen       50096;
+  proxy_pass ss_50096;
+  error_log /var/log/nginx/error_ss_50096.log;
+}
+
+server {
+  listen       50097;
+  proxy_pass ss_50097;
+  error_log /var/log/nginx/error_ss_50097.log;
+}
+
+server {
+  listen       50098;
+  proxy_pass ss_50098;
+  error_log /var/log/nginx/error_ss_50098.log;
+}
+
+server {
+  listen       50099;
+  proxy_pass ss_50099;
+  error_log /var/log/nginx/error_ss_50099.log;
+}
+
+server {
+  listen       50100;
+  proxy_pass ss_50100;
+  error_log /var/log/nginx/error_ss_50100.log;
+}
+

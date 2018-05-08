@@ -1,0 +1,109 @@
+---
+- name: find instance id
+  ec2_instance_facts:
+    region: "{{ destroy_region }}"
+    filters:
+      "tag:Name": "{{ instance_tags.Name }}"
+      "tag:env": "{{ destroy_env }}"
+  register: result
+
+- name: find vpc id
+  ec2_vpc_net_facts:
+    region: "{{ destroy_region }}"
+    filters:
+      "tag:region": "{{ destroy_region }}"
+      "tag:Name": "{{ vpc_tags.Name }}"
+      "tag:env": "{{ destroy_env }}"
+  register: vpc
+
+- name: init vpc ids
+  set_fact: vpc_ids="[]"
+
+- name: set vpc ids
+  set_fact: vpc_ids="{{ vpc_ids }} + [ '{{ item.id }}' ]"
+  with_items: "{{ vpc.vpcs }}"
+  when: vpc is defined
+
+- ec2_group_facts:
+    region: "{{ destroy_region }}"
+    filters:
+      "tag:Name": VoIP
+      vpc-id: "{{ vpc_ids }}"
+  when: vpc_ids is defined
+  register: security_groups
+
+- name: stop instance
+  ec2:
+    region: "{{ destroy_region }}"
+    state: absent
+    instance_ids: '{{ item.instance_id }}'
+    wait: yes
+  with_items: "{{ result.instances }}"
+  when: item.state.name != "terminated"
+
+- name: Delete security group by its id
+  ec2_group:
+    region: "{{ destroy_region }}"
+    group_id: "{{ item.group_id }}"
+    state: absent
+  with_items: "{{ security_groups.security_groups }}"
+  when: item.group_name != "default"
+
+- name: Remove route tables from VPC
+  ec2_vpc_route_table:
+    state: absent
+    vpc_id: "{{ item.id }}"
+    region: "{{ destroy_region }}"
+  with_items: "{{ vpc.vpcs }}"
+  when: vpc is defined
+
+- name: Remove subnets from VPC
+  ec2_vpc_subnet:
+    state: absent
+    vpc_id: "{{ item.id }}"
+    cidr:
+      - "10.0.0.0/24"
+  with_items: "{{ vpc.vpcs }}"
+  when: vpc is defined
+
+- name: Remove VPC
+  ec2_vpc_net:
+    state: absent
+    vpc_id: "{{ item.id }}"
+  with_items: "{{ vpc.vpcs }}"
+  when: vpc is defined
+
+# Legacy
+#- name: Remove internet gateway from VPC
+#  ec2_vpc_igw:
+#    state: absent
+#    vpc_id: "{{ item.id }}"
+#    region: "{{ destroy_region }}"
+#  with_items: "{{ vpc.vpcs }}"
+#  when: vpc is defined
+#
+#- name: Remove subnets, route tables and VPC
+#  ec2_vpc:
+#    vpc_id: "{{ item.id }}"
+#    region: "{{ destroy_region }}"
+#    state: present
+#    resource_tags: "{}"
+#    subnets: []
+#    internet_gateway: False
+#    route_tables: []
+#    wait: yes
+#  with_items: "{{ vpc.vpcs }}"
+#  when: vpc is defined
+#
+#- name: stop vpc
+#  ec2_vpc:
+#    resource_tags:
+#      region: "{{ destroy_region }}"
+#      Name: "{{ vpc_tags.Name }}"
+#      env: "{{ destroy_env }}"
+#    state: absent
+#    vpc_id: "{{ item.id }}"
+#    region: "{{ destroy_region }}"
+#    wait: yes
+#  with_items: "{{ vpc.vpcs }}"
+#  when: vpc is defined

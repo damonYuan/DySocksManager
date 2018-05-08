@@ -1,0 +1,21 @@
+upstream main_app {
+  ip_hash;
+  server {{ manager_1_ip }}:6003;
+  server {{ worker_1_ip }}:6003;
+  server {{ worker_2_ip }}:6003;
+  server {{ worker_3_ip }}:6003;
+}
+
+server {
+  listen       80;
+  server_name  shadowsocks.handy.travel shadowsocks-st.handy.travel;
+  location / {
+      proxy_pass http://main_app;
+      proxy_redirect off;
+      proxy_set_header Host               $host;
+      proxy_set_header X-Forwarded-Host   $host;
+      proxy_set_header X-Forwarded-Server $host;
+      proxy_set_header X-Real-IP          $remote_addr;
+      proxy_set_header X-Forwarded-For    $proxy_add_x_forwarded_for;
+    }
+}

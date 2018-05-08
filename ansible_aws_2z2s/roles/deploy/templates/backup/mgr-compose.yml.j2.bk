@@ -1,0 +1,24 @@
+version: '3.2'
+
+services:
+
+  ss_manager:
+    image: tyzlmjj/shadowsocks:libev
+    command: ss-manager -m aes-256-cfb -u --manager-address 127.0.0.1:6001
+    ports:
+      - 6001:6001
+    restart: always
+
+  ssmgr_c:
+    image: tyzlmjj/shadowsocks:manager
+    command: -c /root/.ssmgr/ss.yml
+    volumes:
+      - "~/ssmgr:/root/.ssmgr"
+    restart: always
+
+  ssmgr_m:
+    image: tyzlmjj/shadowsocks:manager
+    command: -c /root/.ssmgr/webgui.yml
+    volumes:
+      - "~/ssmgr:/root/.ssmgr"
+    restart: always

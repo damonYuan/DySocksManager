@@ -1,0 +1,8 @@
+---
+env: "development"
+ubuntu_user: "vagrant"
+manager_ip: "192.168.10.2"
+swarm_ip_subnet: "192.168.10"
+num_of_workers: 1
+http_proxy: ""
+https_proxy: ""

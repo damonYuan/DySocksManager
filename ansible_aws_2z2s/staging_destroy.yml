@@ -1,0 +1,8 @@
+---
+- name: destroy instances
+  hosts: localhost
+  vars_files:
+    - ./files/staging.yml
+  roles:
+    - role: common
+    - role: awsd

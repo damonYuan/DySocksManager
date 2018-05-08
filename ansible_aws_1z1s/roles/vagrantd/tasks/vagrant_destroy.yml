@@ -1,0 +1,5 @@
+---
+
+- name: destroy vagrant
+  shell: |
+      cd vagrant && vagrant destroy --force

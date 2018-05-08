@@ -52,11 +52,11 @@ plugins:
     gcmAPIKey: 'AAAAGzzdqrE:XXXXXXXXXXXXXX'
   alipay:
     use: true
-    appid: WEBGUI_ALIPAY_APPID
-    notifyUrl: WEBGUI_ALIPAY_NOTIFY_URL
-    merchantPrivateKey: WEBGUI_ALIPAY_MERCHANT_PRIVATE_KEY
-    alipayPublicKey: WEBGUI_ALIPAY_ALIPAY_PUBLIC_KEY
-    gatewayUrl: WEBGUI_ALIPAY_GATEWAY_URL
+    appid: 'WEBGUI_ALIPAY_APPID'
+    notifyUrl: 'WEBGUI_ALIPAY_NOTIFY_URL'
+    merchantPrivateKey: 'WEBGUI_ALIPAY_MERCHANT_PRIVATE_KEY'
+    alipayPublicKey: 'WEBGUI_ALIPAY_ALIPAY_PUBLIC_KEY'
+    gatewayUrl: 'WEBGUI_ALIPAY_GATEWAY_URL'
   # alipay:
   #   use: true
   #   appid: 2015012104922471

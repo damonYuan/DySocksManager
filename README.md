@@ -4,8 +4,8 @@ README
 [![Docker Automated build](https://img.shields.io/docker/automated/jrottenberg/ffmpeg.svg)](https://circleci.com/gh/damonYuan/DySocksManager)
 ![license](https://img.shields.io/github/license/mashape/apistatus.svg)
 
-![GitHub stars](https://img.shields.io/github/stars/damonYuan/DySocksManager.svg?style=social&label=Stars)
-![GitHub watchers](https://img.shields.io/github/watchers/damonYuan/DySocksManager.svg?style=social&label=Watch)
+[![GitHub stars](https://img.shields.io/github/stars/damonYuan/DySocksManager.svg?style=social&label=Stars)](https://github.com/damonYuan/DySocksManager/stargazers)
+[![GitHub watchers](https://img.shields.io/github/watchers/damonYuan/DySocksManager.svg?style=social&label=Watch)](https://github.com/damonYuan/DySocksManager/watchers)
 [![GitHub issues](https://img.shields.io/github/issues/damonYuan/DySocksManager.svg)](https://github.com/damonYuan/DySocksManager/issues)
 
 

@@ -117,7 +117,7 @@ workflows:
 
   sswebgui-build-job:
     jobs:
-      - ssmysql-build-job:
+      - sswebgui-build-job:
           filters:
             branches:
               only:
@@ -125,7 +125,7 @@ workflows:
 
   sssocksmgr-build-job:
     jobs:
-      - ssmysql-build-job:
+      - sssocksmgr-build-job:
           filters:
             branches:
               only:

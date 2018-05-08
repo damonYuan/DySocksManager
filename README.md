@@ -6,7 +6,7 @@ README
 
 ![GitHub stars](https://img.shields.io/github/stars/damonYuan/DySocksManager.svg?style=social&label=Stars)
 ![GitHub watchers](https://img.shields.io/github/watchers/damonYuan/DySocksManager.svg?style=social&label=Watch)
-![GitHub issues](https://img.shields.io/github/issues/damonYuan/DySocksManager.svg)
+[![GitHub issues](https://img.shields.io/github/issues/damonYuan/DySocksManager.svg)](https://github.com/damonYuan/DySocksManager/issues)
 
 
 This project is based on **[ShadowSocks-Manager](https://github.com/shadowsocks/shadowsocks-manager)**. 

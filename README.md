@@ -1,8 +1,7 @@
 README
 ===
 
-[![CircleCI](https://circleci.com/gh/damonYuan/DySocksManager.svg?style=shield)](https://circleci.com/gh/damonYuan/DySocksManager)
-![Docker Automated build](https://img.shields.io/docker/automated/jrottenberg/ffmpeg.svg)
+[![Docker Automated build](https://img.shields.io/docker/automated/jrottenberg/ffmpeg.svg)](https://circleci.com/gh/damonYuan/DySocksManager)
 
 ![GitHub stars](https://img.shields.io/github/stars/damonYuan/DySocksManager.svg?style=social&label=Stars)
 ![GitHub watchers](https://img.shields.io/github/watchers/damonYuan/DySocksManager.svg?style=social&label=Watch)

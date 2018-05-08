@@ -60,7 +60,7 @@ In order to run the docker stack after image is built and uploaded to registry c
    
 3. Result with visualizer
    
-   ![docker swarm mode](https://github.com/damonYuan/shadowsocks-manager/blob/master/wikiImage/docker-swarm-mode.png)
+   ![docker swarm mode](https://raw.githubusercontent.com/damonYuan/DySocksManager/master/wiki_images/docker-swarm-mode.png)
    
 ## Note about using mysql for shadowsocks-manager
    

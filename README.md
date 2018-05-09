@@ -17,7 +17,7 @@ Since the manager should manage only one specific shadowsocks instance, I am goi
 
 > https://docs.docker.com/config/containers/multi-service_container/
 
-If you have any methods to deploy shadowsocks-manager in cluster using Kubernets, please let me know, my github is [damonYuam](https://github.com/damonYuan), and my email address is *yzmhit@gmail.com*.
+If you have any methods to deploy shadowsocks-manager in cluster using Kubernets, please let me know, my github is [damonYuam](https://github.com/damonYuan), and my email address is *damon.yuan.dev@gmail.com*.
 
 Thanks
 

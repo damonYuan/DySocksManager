@@ -9,7 +9,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: v1-{{ checksum "./ssmysql/Dockerfile" }}-{{ checksum "./ssmysql/init_webgui.sql" }}-{{ checksum "./ssmysql/mysql.cnf" }}
+          key: v1-{{ checksum "./containers/ssmysql/Dockerfile" }}-{{ checksum "./containers/ssmysql/init_webgui.sql" }}-{{ checksum "./containers/ssmysql/mysql.cnf" }}
           paths:
             - ~/caches/ssmysql.tar
             - ~/caches/mysql.tar
@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Build application Docker image
           command: |
-            docker build --cache-from=damonyuan/ss-mysql -t damonyuan/ss-mysql ./ssmysql/
+            docker build --cache-from=damonyuan/ss-mysql -t damonyuan/ss-mysql ./containers/ssmysql/
       - run:
           name: Save Docker image layer cache
           command: |
@@ -30,7 +30,7 @@ jobs:
             docker save -o ~/caches/ssmysql.tar damonyuan/ss-mysql
             docker save -o ~/caches/mysql.tar mysql
       - save_cache:
-          key: v1-{{ checksum "./ssmysql/Dockerfile" }}-{{ checksum "./ssmysql/init_webgui.sql" }}-{{ checksum "./ssmysql/mysql.cnf" }}
+          key: v1-{{ checksum "./containers/ssmysql/Dockerfile" }}-{{ checksum "./containers/ssmysql/init_webgui.sql" }}-{{ checksum "./containers/ssmysql/mysql.cnf" }}
           paths:
             - ~/caches/ssmysql.tar
             - ~/caches/mysql.tar
@@ -45,7 +45,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: v1-{{ checksum "./sswebgui/Dockerfile" }}-{{ checksum "./sswebgui/entrypoint.sh" }}-{{ checksum "./sswebgui/webgui.yml" }}
+          key: v1-{{ checksum "./containers/sswebgui/Dockerfile" }}-{{ checksum "./containers/sswebgui/entrypoint.sh" }}-{{ checksum "./containers/sswebgui/webgui.yml" }}
           paths:
             - ~/caches/sswebgui.tar
       - run:
@@ -56,14 +56,14 @@ jobs:
       - run:
           name: Build application Docker image
           command: |
-            docker build --cache-from=damonyuan/ss-webgui -t damonyuan/ss-webgui ./sswebgui/
+            docker build --cache-from=damonyuan/ss-webgui -t damonyuan/ss-webgui ./containers/sswebgui/
       - run:
           name: Save Docker image layer cache
           command: |
             mkdir -p ~/caches
             docker save -o ~/caches/sswebgui.tar damonyuan/ss-webgui
       - save_cache:
-          key: v1-{{ checksum "./sswebgui/Dockerfile" }}-{{ checksum "./sswebgui/entrypoint.sh" }}-{{ checksum "./sswebgui/webgui.yml" }}
+          key: v1-{{ checksum "./containers/sswebgui/Dockerfile" }}-{{ checksum "./containers/sswebgui/entrypoint.sh" }}-{{ checksum "./containers/sswebgui/webgui.yml" }}
           paths:
             - ~/caches/sswebgui.tar
       - run:
@@ -77,7 +77,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: v1-{{ checksum "./sssocksmgr/Dockerfile" }}-{{ checksum "./sssocksmgr/entrypoint.sh" }}-{{ checksum "./sssocksmgr/ssmgr.yml" }}-{{ checksum "./sssocksmgr/supervisord.conf" }}
+          key: v1-{{ checksum "./containers/sssocksmgr/Dockerfile" }}-{{ checksum "./containers/sssocksmgr/entrypoint.sh" }}-{{ checksum "./containers/sssocksmgr/ssmgr.yml" }}-{{ checksum "./containers/sssocksmgr/supervisord.conf" }}
           paths:
             - ~/caches/sssocksmgr.tar
       - run:
@@ -88,14 +88,14 @@ jobs:
       - run:
           name: Build application Docker image
           command: |
-            docker build --cache-from=damonyuan/ss-ss-mgr -t damonyuan/ss-ss-mgr ./sssocksmgr/
+            docker build --cache-from=damonyuan/ss-ss-mgr -t damonyuan/ss-ss-mgr ./containers/sssocksmgr/
       - run:
           name: Save Docker image layer cache
           command: |
             mkdir -p ~/caches
             docker save -o ~/caches/sssocksmgr.tar damonyuan/ss-ss-mgr
       - save_cache:
-          key: v1-{{ checksum "./sssocksmgr/Dockerfile" }}-{{ checksum "./sssocksmgr/entrypoint.sh" }}-{{ checksum "./sssocksmgr/ssmgr.yml" }}-{{ checksum "./sssocksmgr/supervisord.conf" }}
+          key: v1-{{ checksum "./containers/sssocksmgr/Dockerfile" }}-{{ checksum "./containers/sssocksmgr/entrypoint.sh" }}-{{ checksum "./containers/sssocksmgr/ssmgr.yml" }}-{{ checksum "./containers/sssocksmgr/supervisord.conf" }}
           paths:
             - ~/caches/sssocksmgr.tar
       - run:

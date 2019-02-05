@@ -5,7 +5,7 @@ services:
   sssocksmgr:
     container_name: sssocksmgr
     build:
-      context: ./sssocksmgr/
+      context: containers/sssocksmgr/
       dockerfile: Dockerfile
     environment:
       MANAGER_PASSWORD: ${MANAGER_PASSWORD}
@@ -19,7 +19,7 @@ services:
   sswebgui:
     container_name: sswebgui
     build:
-      context: ./sswebgui/
+      context: containers/sswebgui/
       dockerfile: Dockerfile
     environment:
       WEBGUI_EMAIL_USERNAME: ${WEBGUI_EMAIL_USERNAME}
@@ -42,7 +42,7 @@ services:
   db:
     container_name: ssmysql
     build:
-      context: ./ssmysql/
+      context: containers/ssmysql/
       dockerfile: Dockerfile
     environment:
       MYSQL_ROOT_PASSWORD: ${MANAGER_DB_PASSWORD}

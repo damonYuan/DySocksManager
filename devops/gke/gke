@@ -1,0 +1,112 @@
+#!/bin/bash
+# ---------------------------------------------------------------------------
+# gke - create gke
+
+# Copyright 2019,  <damon@Damons-Macbook.local>
+# All rights reserved.
+
+# Usage: gke [-h|--help] [-i|--init] [-s|--start]
+
+# Revision history:
+# 2019-02-05 Created by new_script ver. 3.3
+# ---------------------------------------------------------------------------
+
+PROGNAME=${0##*/}
+VERSION="0.1"
+
+clean_up() { # Perform pre-exit housekeeping
+  return
+}
+
+error_exit() {
+  echo -e "${PROGNAME}: ${1:-"Unknown Error"}" >&2
+  clean_up
+  exit 1
+}
+
+graceful_exit() {
+  clean_up
+  exit
+}
+
+signal_exit() { # Handle trapped signals
+  case $1 in
+    INT)
+      error_exit "Program interrupted by user" ;;
+    TERM)
+      echo -e "\n$PROGNAME: Program terminated" >&2
+      graceful_exit ;;
+    *)
+      error_exit "$PROGNAME: Terminating on unknown signal" ;;
+  esac
+}
+
+usage() {
+  echo -e "Usage: $PROGNAME [-h|--help] [-i|--init] [-s|--start]"
+}
+
+help_message() {
+  cat <<- _EOF_
+  $PROGNAME ver. $VERSION
+  create gke
+
+  $(usage)
+
+  Options:
+  -h, --help  Display this help message and exit.
+  -i, --init  init
+  -s, --start  start
+
+_EOF_
+  return
+}
+
+# Trap signals
+trap "signal_exit TERM" TERM HUP
+trap "signal_exit INT"  INT
+
+init() {
+  gcloud init;
+}
+
+start() {
+  gcloud container clusters create dysm --num-nodes 2
+}
+
+delete() {
+  kubectl delete all --all
+}
+
+stop() {
+  gcloud container clusters delete dysm
+}
+
+connect() {
+  # gcloud compute instances reset $(kubectl get nodes)
+  gcloud compute ssh $(kubectl get nodes)
+}
+
+
+
+# Parse command-line
+while [[ -n $1 ]]; do
+  case $1 in
+    -h | --help)
+      help_message; graceful_exit ;;
+    -i | --init)
+      echo "init" ;;
+    -s | --start)
+      echo "start" ;;
+    -* | --*)
+      usage
+      error_exit "Unknown option $1" ;;
+    *)
+      echo "Argument $1 to process..." ;;
+  esac
+  shift
+done
+
+# Main logic
+
+graceful_exit
+
